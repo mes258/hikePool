@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html>
+    <body>
+        {% for c in car %}
+        <h2>Join {{c[3]}}'s car to {{c[2]}}!</h2>
+
+        <form action="/join/{{'%d' %c[0]}}/submit" method='post'>
+            <input placeholder='Name' name = 'name'>
+            <!-- <input placeholder='phone' name = 'phone'>
+            <input placeholder='location' name = 'location'> -->
+
+            <input type="submit" value="Submit">
+        </form>
+        {% endfor %}
+
+
+        
+    </body>
+</html>

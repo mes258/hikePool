@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+    <body>
+        <form action='/' method='post'>
+            <input type="date" placeholder='Date of Trip' name = 'date'>
+            <input placeholder='Destinaion' name = 'destination'>
+            <input placeholder='Driver Name' name = 'name'>
+            <input placeholder='Driver phone' name = 'phone'>
+            <input placeholder='Driver Location' name = 'location'>
+            <input type="number" placeholder='Number of passengers' name = 'passengerNum'>
+
+            <input type="submit" value="Submit">
+        </form>
+        <table>
+            <tr>
+                <td>ID:</td>
+                <td>Date:</td>
+                <td>Destination:</td>
+                <td>DriverName:</td>
+                <td>DriverPhone:</td>
+                <td>Pick Up Spot:</td>
+                <td>Number of passengers:</td>
+                <td>Passenger 1:</td>
+                <td>Passenger 2:</td>
+                <td>Passenger 3:</td>
+                <td>Passenger 4:</td>
+                <td>Passenger 5:</td>
+                <td>Passenger 6:</td>
+                <td>Join:</td>
+                <td>Delete:</td>
+            </tr>
+            {% for car in cars %}
+            <tr>
+                <td>{{"%d" %car[0]}}</td>
+                <td>{{car[1]}}</td>
+                <td>{{car[2]}}</td>
+                <td>{{car[3]}}</td>
+                <td>{{car[4]}}</td>
+                <td>{{car[5]}}</td>
+                <td>{{"%d" %car[6]}}</td>
+                <td>{{car[7]}}</td>
+                <td>{{car[8]}}</td>
+                <td>{{car[9]}}</td>
+                <td>{{car[10]}}</td>
+                <td>{{car[11]}}</td>
+                <td>{{car[12]}}</td>
+                <td><form action="/join/{{'%d' %car[0]}}" method="post">
+                    <input type="submit" value="Join">
+                </form></td>
+                <td><form action="/delete/{{'%d' %car[0]}}" method="post">
+                    <input type="submit" value="Delete" />
+                </form></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
