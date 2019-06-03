@@ -38,7 +38,8 @@ def join_car(carID):
 @app.route('/join/<carID>/submit', methods=['POST'])
 def join_car_Submit(carID):
     name = request.form.get('name')
-    joinCar(carID, name)
+    phone = request.form.get('phone')
+    joinCar(carID, name, phone)
     
     cars = get_cars()
     return redirect('/')

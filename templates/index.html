@@ -2,55 +2,62 @@
 
 <html>
     <body>
-        <form action='/' method='post'>
-            <input type="date" placeholder='Date of Trip' name = 'date'>
-            <input placeholder='Destinaion' name = 'destination'>
-            <input placeholder='Driver Name' name = 'name'>
-            <input placeholder='Driver phone' name = 'phone'>
-            <input placeholder='Driver Location' name = 'location'>
-            <input type="number" placeholder='Number of passengers' name = 'passengerNum'>
-
-            <input type="submit" value="Submit">
-        </form>
-        <table>
-            <tr>
-                <td>Date:</td>
-                <td>Destination:</td>
-                <td>DriverName:</td>
-                <td>DriverPhone:</td>
-                <td>Pick Up Spot:</td>
-                <td>Number of passengers:</td>
-                <td>Passenger 1:</td>
-                <td>Passenger 2:</td>
-                <td>Passenger 3:</td>
-                <td>Passenger 4:</td>
-                <td>Passenger 5:</td>
-                <td>Passenger 6:</td>
-                <td>Join:</td>
-                <td>Delete:</td>
-            </tr>
-            {% for car in cars %}
-            <tr>
-                <td>{{car[1]}}</td>
-                <td>{{car[2]}}</td>
-                <td>{{car[3]}}</td>
-                <td>{{car[4]}}</td>
-                <td>{{car[5]}}</td>
-                <td>{{"%d" %car[6]}}</td>
-                <td>{{car[7]}}</td>
-                <td>{{car[8]}}</td>
-                <td>{{car[9]}}</td>
-                <td>{{car[10]}}</td>
-                <td>{{car[11]}}</td>
-                <td>{{car[12]}}</td>
-                <td><form action="/join/{{'%d' %car[0]}}" method="post">
-                    <input type="submit" value="Join">
-                </form></td>
-                <td><form action="/delete/{{'%d' %car[0]}}" method="post">
-                    <input type="submit" value="Delete" />
-                </form></td>
-            </tr>
-            {% endfor %}
-        </table>
+        <h1> Welcome to Hitch A Ride! </h1>
+        <div style="border: 1px solid black; width: 28%; float: right">
+            <h3>Drivers, Add your ride:</h3>
+            <form action="/" method="post">
+                <input type="date" placeholder="Date of Trip" name = "date">
+                <input placeholder="Park/Trail" name = "destination">
+                <input placeholder="Driver's Name" name = "name">
+                <input placeholder="Driver's phone" name = "phone">
+                <input placeholder="Driver's Starting Location" name = "location">
+                <input type="number" placeholder="Number of passengers" name = "passengerNum">
+                <input type="submit" value="Add Ride">
+            </form>
+        </div>
+        
+        <div style="border: 1px solid grey; width: 70%; float: left">
+            <h3>Riders, Find and join your ride:</h3>
+            <table>
+                <tr>
+                    <td>Date:</td>
+                    <td>Destination:</td>
+                    <td>DriverName:</td>
+                    <td>DriverPhone:</td>
+                    <td>Pick Up Spot:</td>
+                    <td>Number of passengers:</td>
+                    <td>Passenger 1:</td>
+                    <td>Passenger 2:</td>
+                    <td>Passenger 3:</td>
+                    <td>Passenger 4:</td>
+                    <td>Passenger 5:</td>
+                    <td>Passenger 6:</td>
+                    <td>Join:</td>
+                    <td>Delete:</td>
+                </tr>
+                {% for car in cars %}
+                <tr>
+                    <td>{{car[1]}}</td>
+                    <td>{{car[2]}}</td>
+                    <td>{{car[3]}}</td>
+                    <td>{{car[4]}}</td>
+                    <td>{{car[5]}}</td>
+                    <td>{{"%d" %car[6]}}</td>
+                    <td>{{car[7]}} <br> {{car[13]}}</td>
+                    <td>{{car[8]}} <br> {{car[14]}}</td>
+                    <td>{{car[9]}} <br> {{car[15]}}</td>
+                    <td>{{car[10]}} <br> {{car[16]}}</td>
+                    <td>{{car[11]}} <br> {{car[17]}}</td>
+                    <td>{{car[12]}} <br> {{car[18]}}</td>
+                    <td><form action="/join/{{"%d" %car[0]}}" method="post">
+                        <input type="submit" value="Join">
+                    </form></td>
+                    <td><form action="/delete/{{"%d" %car[0]}}" method="post">
+                        <input type="submit" value="Delete" />
+                    </form></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>    
     </body>
 </html>
