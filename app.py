@@ -12,12 +12,13 @@ def index():
 
     if request.method == 'POST':
         date = request.form.get('date')
+        time = request.form.get('time')
         destination = request.form.get('destination')
         name = request.form.get('name')
         phone = request.form.get('phone')
         location = request.form.get('location')
         passengerNum = request.form.get('passengerNum')
-        create_car(date, destination, name, phone, location, passengerNum)
+        create_car(date, time, destination, name, phone, location, passengerNum)
 
     cars = get_cars()
 
@@ -31,7 +32,6 @@ def delete_entry(carID):
 
 @app.route('/join/<carID>', methods=['POST'])
 def join_car(carID):
-    # joinCar(carID)
     car = getCar(carID)
     return render_template('join.html', car=car)
 
