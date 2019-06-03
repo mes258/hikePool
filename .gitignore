@@ -2,6 +2,18 @@
 # Created by https://www.gitignore.io/api/flask,python,database
 # Edit at https://www.gitignore.io/?templates=flask,python,database
 
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+
 ### Database ###
 *.accdb
 *.db
