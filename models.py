@@ -94,6 +94,6 @@ def addPhone():
     # cur.execute('alter table cars add column passengerFourPhone text;')
     # cur.execute('alter table cars add column passengerFivePhone text;')
     # cur.execute('alter table cars add column passengerSixPhone text;')
-    cur.execute('alter table cars add column time time;')
+    #cur.execute('alter table cars add column time time;')
     con.commit()
     con.close()
