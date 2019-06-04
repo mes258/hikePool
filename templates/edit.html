@@ -14,8 +14,10 @@
                 Where are you leaving from? <input value="{{c[5]}}" name = "location"> <br>
                 <input type="submit" value="Save changes">
             </form>
+            <br>
+            <br>
             <form action="/delete/{{'%d' %c[0]}}" method="post">
-                <input type="submit" value="Delete" />
+                <input type="submit" value="Delete Ride" />
             </form>
         {% endfor %}
     </body>

@@ -11,17 +11,17 @@ def create_car(date, time, destination, name, phone, location, passengerNum, sec
     if passengerNum == '0':
         cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerOneName, passengerTwoName, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', ' ',' ',' ',' ',' ',' ', secretCode))
     elif passengerNum == '1':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerTwoName, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', '', '', '', secretCode))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerTwoName, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', '', '', '', '', secretCode))
     elif passengerNum == '2':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A','','','','', secretCode))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A','','','','','','', secretCode))
     elif passengerNum == '3':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerFourName, passengerFiveName, passengerSixName, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A','','','', secretCode))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerFourName, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A','','','','','','', secretCode))
     elif passengerNum == '4':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerFiveName, passengerSixName, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A','','', secretCode))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A','','','','','','', secretCode))
     elif passengerNum == '5':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerSixName, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A','', secretCode))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A','','','','','','', secretCode))
     else:
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, secretCode) values(?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, secretCode))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum,'','','','','','', secretCode))
     con.commit()
     con.close()
 
@@ -30,10 +30,10 @@ def get_cars():
     cur = con.cursor()
     cur.execute('select * from cars ORDER BY date, destination;')
     cars = cur.fetchall()
-    firstTripDate = datetime.strptime(cars[0][1], "%Y-%m-%d")
-    print(firstTripDate)
-    if firstTripDate < datetime.now() - timedelta(days=1):
-        deleteCar(cars[0][0])
+    if len(cars) > 0:
+        firstTripDate = datetime.strptime(cars[0][1], "%Y-%m-%d")
+        if firstTripDate < datetime.now() - timedelta(days=1):
+            deleteCar(cars[0][0])
     #updateTable()
     return cars
 

@@ -49,7 +49,7 @@ def join_car_Submit(carID):
 def edit_car(carID):
     secretCode = request.form.get('sc')
     car = getCar(carID)
-    if secretCode == car[0][20]:
+    if car[0][20] == None or secretCode == car[0][20]:
         return render_template('edit.html', car=car)
     else: 
         cars = get_cars()
