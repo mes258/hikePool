@@ -19,6 +19,7 @@ drop table if exists cars;
         passengerFourPhone text,
         passengerFivePhone text,
         passengerSixPhone text,
-        time time
+        time time,
+        secretCode text
 );
 		

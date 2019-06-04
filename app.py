@@ -18,7 +18,8 @@ def index():
         phone = request.form.get('phone')
         location = request.form.get('location')
         passengerNum = request.form.get('passengerNum')
-        create_car(date, time, destination, name, phone, location, passengerNum)
+        secretCode = request.form.get('secretCode')
+        create_car(date, time, destination, name, phone, location, passengerNum, secretCode)
 
     cars = get_cars()
 
@@ -26,7 +27,11 @@ def index():
 
 @app.route('/delete/<carID>', methods=['POST'])
 def delete_entry(carID):
-    deleteCar(carID)
+    secretCode = request.form.get('sc')
+    print("SC: " + secretCode)
+    print("FROM DB: " + getCar(carID)[0][20])
+    if secretCode == getCar(carID)[0][20]:
+        deleteCar(carID)
     cars = get_cars()
     return redirect('/')
 

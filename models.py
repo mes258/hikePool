@@ -4,24 +4,24 @@ from os import path
 
 ROOT = path.dirname(path.relpath((__file__)))
 
-def create_car(date, time, destination, name, phone, location, passengerNum):
+def create_car(date, time, destination, name, phone, location, passengerNum, secretCode):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
     print(passengerNum)
     if passengerNum == '0':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerOneName, passengerTwoName, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', ' ',' ',' ',' ',' ',' '))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerOneName, passengerTwoName, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', ' ',' ',' ',' ',' ',' ', secretCode))
     elif passengerNum == '1':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerTwoName, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', '', '', ''))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerTwoName, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', '', '', '', secretCode))
     elif passengerNum == '2':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A','','','',''))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A','','','','', secretCode))
     elif passengerNum == '3':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerFourName, passengerFiveName, passengerSixName, passengerFourPhone, passengerFivePhone, passengerSixPhone) values(?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A','','',''))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerFourName, passengerFiveName, passengerSixName, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A','','','', secretCode))
     elif passengerNum == '4':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerFiveName, passengerSixName, passengerFivePhone, passengerSixPhone) values(?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A','',''))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerFiveName, passengerSixName, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A','','', secretCode))
     elif passengerNum == '5':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerSixName, passengerSixPhone) values(?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A',''))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerSixName, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A','', secretCode))
     else:
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers) values(?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum))
+        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, secretCode) values(?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, secretCode))
     con.commit()
     con.close()
 
@@ -100,5 +100,6 @@ def addPhone():
     # cur.execute('alter table cars add column passengerFivePhone text;')
     # cur.execute('alter table cars add column passengerSixPhone text;')
     #cur.execute('alter table cars add column time time;')
+    #cur.execute('alter table cars add column secretCode text;')
     con.commit()
     con.close()

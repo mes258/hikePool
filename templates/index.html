@@ -2,7 +2,7 @@
 
 <html>
     <body>
-        <h1> Welcome to Hitch A Ride! </h1>
+        <h1> Welcome to Hitch A Ride! <span style="color: grey;">(beta)</span></h1> 
         <div style="border: 1px solid black; width: 28%; float: right">
             <h3>Drivers, Add your ride:</h3>
             <form action="/" method="post">
@@ -58,10 +58,12 @@
                     </form></td>
                     <td><form action="/delete/{{"%d" %car[0]}}" method="post">
                         <input type="submit" value="Delete" />
-                    </form></td>
+                        <input type="password" name="sc" />
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
-        </div>    
+        </div>  
     </body>
 </html>
