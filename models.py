@@ -77,6 +77,17 @@ def deleteCar(carId):
     con.commit()
     con.close()
 
+def editCar(carId, date, time, destination, phone, location):
+    con = sql.connect(path.join(ROOT, 'database.db'))
+    cur = con.cursor()
+    cur.execute('update cars set date = ? where id = ?', [date, carId])
+    cur.execute('update cars set time = ? where id = ?', [time, carId])
+    cur.execute('update cars set destination = ? where id = ?', [destination, carId])
+    cur.execute('update cars set driverPhone = ? where id = ?', [phone, carId])
+    cur.execute('update cars set driverLocation = ? where id = ?', [location, carId])
+    con.commit()
+    con.close()
+
 def updateTable():
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()

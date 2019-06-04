@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_cors import CORS
-from models import create_car, get_cars, deleteCar, joinCar, getCar
+from models import create_car, get_cars, deleteCar, joinCar, getCar, editCar
 app = Flask(__name__)
 
 CORS(app)
@@ -27,11 +27,7 @@ def index():
 
 @app.route('/delete/<carID>', methods=['POST'])
 def delete_entry(carID):
-    secretCode = request.form.get('sc')
-    print("SC: " + secretCode)
-    print("FROM DB: " + getCar(carID)[0][20])
-    if secretCode == getCar(carID)[0][20]:
-        deleteCar(carID)
+    deleteCar(carID)
     cars = get_cars()
     return redirect('/')
 
@@ -46,6 +42,28 @@ def join_car_Submit(carID):
     phone = request.form.get('phone')
     joinCar(carID, name, phone)
     
+    cars = get_cars()
+    return redirect('/')
+
+@app.route('/edit/<carID>', methods=['POST'])
+def edit_car(carID):
+    secretCode = request.form.get('sc')
+    car = getCar(carID)
+    if secretCode == car[0][20]:
+        return render_template('edit.html', car=car)
+    else: 
+        cars = get_cars()
+        return redirect('/')
+
+@app.route('/edit/<carID>/submit', methods=['POST'])
+def edit_car_Submit(carID):
+    date = request.form.get('date')
+    time = request.form.get('time')
+    destination = request.form.get('destination')
+    phone = request.form.get('phone')
+    location = request.form.get('location')
+    editCar(carID, date, time, destination, phone, location)
+
     cars = get_cars()
     return redirect('/')
 
