@@ -1,4 +1,5 @@
 import sqlite3 as sql
+from datetime import datetime, time, timedelta
 from os import path
 
 ROOT = path.dirname(path.relpath((__file__)))
@@ -29,6 +30,10 @@ def get_cars():
     cur = con.cursor()
     cur.execute('select * from cars ORDER BY date, destination;')
     cars = cur.fetchall()
+    firstTripDate = datetime.strptime(cars[0][1], "%Y-%m-%d")
+    print(firstTripDate)
+    if firstTripDate < datetime.now() - timedelta(days=1):
+        deleteCar(cars[0][0])
     #updateTable()
     return cars
 
