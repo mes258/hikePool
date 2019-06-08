@@ -70,8 +70,9 @@ def edit_ride_submit(rideId):
     destination = request.form.get('destination')
     pickUpSpot = request.form.get('pickUpSpot')
     removedPassengers = request.form.getlist('removedPassenger')
-    print(removedPassengers) 
-    editRide(rideId, date, time, destination, pickUpSpot, removedPassengers)
+    removedPassengerIds = (passenger[0] for passenger in removedPassengers)
+    removedPeopleIds = (passenger[1] for passenger in removedPassengers)
+    editRide(rideId, date, time, destination, pickUpSpot, removedPassengerIds, removedPeopleIds)
 
     rides = getRides()
     return redirect('/')

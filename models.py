@@ -46,26 +46,30 @@ def deleteRide(rideId):
     cur.execute('delete from rides WHERE id = ?', [rideId])
     con.commit()
     con.close()
+    passengers = getPassengers(rideId, 10000)
+    print(passengers)
+    passIds=(passenger[3] for passenger in passengers)
+    peopleIds=(passenger[0] for passenger in passengers)
+    deletePassengers(passIds)
+    deletePeople(peopleIds)
 
-def editRide(rideId, date, time, destination, pickUpSpot, removedPassengers):
+
+def editRide(rideId, date, time, destination, pickUpSpot, removedPassengerIds, removedPeopleIds):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
     cur.execute('update rides set date = ? where id = ?', [date, rideId])
     cur.execute('update rides set time = ? where id = ?', [time, rideId])
     cur.execute('update rides set destination = ? where id = ?', [destination, rideId])
     cur.execute('update rides set pickUpSpot = ? where id = ?', [pickUpSpot, rideId])
-
-    for id in removedPassengers:
-        print("removing passenger maybe?: " + id)
-        cur.execute('delete from passengers where id = ?', [id])
-        cur.execute('update rides set spotsOpen = spotsOpen + 1 where id = ?', [rideId])
     con.commit()
     con.close()
+    deletePassengers(removedPassengerIds)
+    deletePeople(removedPeopleIds)
+
 
 def createPerson(name, phone):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    print("Adding person!")
     cur.execute('insert into people (name, phone) values(?,?)', (name, phone))
     newID = cur.lastrowid
     con.commit()
@@ -88,12 +92,28 @@ def getPerson(personId):
     con.close()
     return person
 
+#Get rid of this if we move to a log in method 
+def deletePeople(peopleIds):
+    con = sql.connect(path.join(ROOT, 'database.db'))
+    cur = con.cursor()
+    for id in peopleIds:
+        cur.execute('delete from people where id = ?', [id])
+    con.commit()
+    con.close()
+
 def getPassengers(rideId, passengerLimit):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
     cur.execute('select * from people join passengers on people.id = passengers.passengerId where passengers.rideId = ? limit ?', [rideId, passengerLimit])
     passengers = cur.fetchall()
-    print(passengers)
     con.close()
     return passengers
 
+def deletePassengers(removedPassengers):
+    con = sql.connect(path.join(ROOT, 'database.db'))
+    cur = con.cursor()
+    for id in removedPassengers:
+        cur.execute('delete from passengers where id = ?', [id])
+        cur.execute('update rides set spotsOpen = spotsOpen + 1 where id = ?', [id])
+    con.commit()
+    con.close()

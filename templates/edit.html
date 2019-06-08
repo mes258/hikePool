@@ -13,7 +13,7 @@
             <br>
             <br>
             {% for passenger in passengers %}
-                <input type="checkbox" name="removedPassenger" value="{{passenger[3]}}">{{passenger[1]}}: {{passenger[2]}}<br>
+                <input type="checkbox" name="removedPassenger" value="{{[passenger[3], passenger[0]]}}">{{passenger[1]}}: {{passenger[2]}}<br>
             {% endfor %}
             <input type="submit" value="Save changes">
         </form>
