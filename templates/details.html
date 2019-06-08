@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+    <body>
+        <table>
+            <tr>
+                <th>Date:</th>
+                <th>Time:</th>
+                <th>Destination:</th>
+                <th>Pick Up Spot:</th>
+                <th>Driver Name:</th>
+                <th>Driver Phone Number:</th>
+                <th>Spots Open:</th>
+                <th>Join:</th>
+                <th>Details:</td>
+            </tr>
+            {% for r in ride %}
+            <tr>
+                <td>{{r[1]}}</td>
+                <td>{{r[2]}}</td>
+                <td>{{r[3]}}</td>
+                <td>{{r[4]}}</td>
+                <td>{{driver[0][1]}}</td>
+                <td>{{driver[0][2]}}</td>
+                <td>{{r[7]}}/{{r[6]}}</td>
+                <td><form action="/join/{{'{0}'.format(r[0])}}" method="post">
+                    <input type="submit" value="Join">
+                </form></td>
+                <td><form action="/edit/{{'{0}'.format(r[0])}}" method="post">
+                    <input type="submit" value="Edit">
+                </form></td>
+            </tr>
+            <tr>
+                {% for passenger in passengers %}
+                <td>{{passenger[1]}}: {{passenger[2]}}</td>
+                {% endfor %}
+            </tr>
+            <tr> 
+                <td colspan="15">
+                    <hr>
+                </td>
+            </tr>
+            {% endfor %}
+        </table> 
+    </body>
+</html>
+

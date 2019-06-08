@@ -2,13 +2,12 @@
 
 <html>
     <body>
-        {% for c in car %}
-        <h2>Join {{c[3]}}'s car to {{c[2]}}!</h2>
+        {% for r in ride %}
+        <h2>Join the car to {{r[3]}} on {{r[1]}} at {{r[2]}}!</h2>
 
-        <form action="/join/{{'%d' %c[0]}}/submit" method='post'>
+        <form action="/join/{{'{0}'.format(r[0])}}/submit" method='post'>
             <input placeholder='Name' name = 'name'>
             <input placeholder='phone' name = 'phone'>
-
             <input type="submit" value="Submit">
         </form>
         {% endfor %}

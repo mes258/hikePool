@@ -4,113 +4,90 @@ from os import path
 
 ROOT = path.dirname(path.relpath((__file__)))
 
-def create_car(date, time, destination, name, phone, location, passengerNum, secretCode):
+def createRide(date, time, destination, pickUpSpot, driverId, passengerNum, spotsOpen, secretCode):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    print(passengerNum)
-    if passengerNum == '0':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerOneName, passengerTwoName, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', ' ',' ',' ',' ',' ',' ', secretCode))
-    elif passengerNum == '1':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerTwoName, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', '', '', '', '', secretCode))
-    elif passengerNum == '2':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerThreeName, passengerFourName, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A', 'N/A','','','','','','', secretCode))
-    elif passengerNum == '3':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerFourName, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A', 'N/A','','','','','','', secretCode))
-    elif passengerNum == '4':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerFiveName, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A', 'N/A','','','','','','', secretCode))
-    elif passengerNum == '5':
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerSixName, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum, 'N/A','','','','','','', secretCode))
-    else:
-        cur.execute('insert into cars (date, time, destination, driverName, driverPhone, driverLocation, numberOfPassengers, passengerOnePhone, passengerTwoPhone, passengerThreePhone, passengerFourPhone, passengerFivePhone, passengerSixPhone, secretCode) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (date, time, destination, name, phone, location, passengerNum,'','','','','','', secretCode))
+    cur.execute('insert into rides (date, time, destination, pickUpSpot, driverId, numberOfPassengers, spotsOpen, secretCode) values(?,?,?,?,?,?,?,?)', (date, time, destination, pickUpSpot, driverId, passengerNum, passengerNum, secretCode))
     con.commit()
     con.close()
 
-def get_cars():
+def getRides():
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    cur.execute('select * from cars ORDER BY date, destination;')
-    cars = cur.fetchall()
-    if len(cars) > 0:
-        firstTripDate = datetime.strptime(cars[0][1], "%Y-%m-%d")
+    cur.execute('select * from rides ORDER BY date, destination;')
+    rides = cur.fetchall()
+    con.close()
+    #Delete the first car if it is out of date
+    if len(rides) > 0:
+        firstTripDate = datetime.strptime(rides[0][1], "%Y-%m-%d")
         if firstTripDate < datetime.now() - timedelta(days=1):
-            deleteCar(cars[0][0])
-    #updateTable()
-    return cars
+            deleteRide(rides[0][0])
+    return rides
 
-def joinCar(carId, name, phone):
+def joinRide(rideId, passengerId):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    car = getCar(carId)
-    print(car[0][7])
-    if car[0][7] == None:
-        cur.execute('update cars set passengerOneName = ? where id = ?', [name, carId])
-        cur.execute('update cars set passengerOnePhone = ? where id = ?', [phone, carId])
-    elif car[0][8] == None:
-        cur.execute('update cars set passengerTwoName = ? where id = ?', [name, carId])
-        cur.execute('update cars set passengerTwoPhone = ? where id = ?', [phone, carId])
-    elif car[0][9] == None:
-        cur.execute('update cars set passengerThreeName = ? where id = ?', [name, carId])
-        cur.execute('update cars set passengerThreePhone = ? where id = ?', [phone, carId])
-    elif car[0][10] == None:
-        cur.execute('update cars set passengerFourName = ? where id = ?', [name, carId])
-        cur.execute('update cars set passengerFourPhone = ? where id = ?', [phone, carId])
-    elif car[0][11] == None:
-        cur.execute('update cars set passengerFiveName = ? where id = ?', [name, carId])
-        cur.execute('update cars set passengerFivePhone = ? where id = ?', [phone, carId])
-    elif car[0][12] == None:
-        cur.execute('update cars set passengerSixName = ? where id = ?', [name, carId])
-        cur.execute('update cars set passengerSixPhone = ? where id = ?', [phone, carId])
+    cur.execute('insert into passengers (rideId, passengerId) values(?,?)', (rideId, passengerId))
+    cur.execute('update rides set spotsOpen = spotsOpen - 1 where id = ?', [rideId])
     con.commit()
     con.close()
 
-def getCar(carId):
+def getRide(rideId):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    cur.execute('select * from cars where id = ?', [carId])
+    cur.execute('select * from rides where id = ?', [rideId])
     car = cur.fetchall()
+    con.close()
     return car
 
-def deleteCar(carId):
+def deleteRide(rideId):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    cur.execute('delete from cars WHERE id = ?', [carId])
+    cur.execute('delete from rides WHERE id = ?', [rideId])
     con.commit()
     con.close()
 
-def editCar(carId, date, time, destination, phone, location):
+def editRide(rideId, date, time, destination, pickUpSpot):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    cur.execute('update cars set date = ? where id = ?', [date, carId])
-    cur.execute('update cars set time = ? where id = ?', [time, carId])
-    cur.execute('update cars set destination = ? where id = ?', [destination, carId])
-    cur.execute('update cars set driverPhone = ? where id = ?', [phone, carId])
-    cur.execute('update cars set driverLocation = ? where id = ?', [location, carId])
+    cur.execute('update rides set date = ? where id = ?', [date, rideId])
+    cur.execute('update rides set time = ? where id = ?', [time, rideId])
+    cur.execute('update rides set destination = ? where id = ?', [destination, rideId])
+    cur.execute('update rides set pickUpSpot = ? where id = ?', [pickUpSpot, rideId])
     con.commit()
     con.close()
 
-def updateTable():
+def createPerson(name, phone):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    # cur.execute('ALTER TABLE cars RENAME COLUMN passengerOne TO passengerOneName')
-    # cur.execute('ALTER TABLE cars RENAME COLUMN passengerTwo TO passengerTwoName')
-    # cur.execute('ALTER TABLE cars RENAME COLUMN passengerThree TO passengerThreeName')
-    # cur.execute('ALTER TABLE cars RENAME COLUMN passengerFour TO passengerFourName')
-    # cur.execute('ALTER TABLE cars RENAME COLUMN passengerFive TO passengerFiveName')
-    # cur.execute('ALTER TABLE cars RENAME COLUMN passengerSix TO passengerSixName')
+    print("Adding person!")
+    cur.execute('insert into people (name, phone) values(?,?)', (name, phone))
+    newID = cur.lastrowid
     con.commit()
     con.close()
-    addPhone()
+    return newID
 
-def addPhone():
+def getPeople():
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    # cur.execute('alter table cars add column passengerOnePhone text;')
-    # cur.execute('alter table cars add column passengerTwoPhone text;')
-    # cur.execute('alter table cars add column passengerThreePhone text;')
-    # cur.execute('alter table cars add column passengerFourPhone text;')
-    # cur.execute('alter table cars add column passengerFivePhone text;')
-    # cur.execute('alter table cars add column passengerSixPhone text;')
-    #cur.execute('alter table cars add column time time;')
-    #cur.execute('alter table cars add column secretCode text;')
-    con.commit()
+    cur.execute('select * from people;')
+    people = cur.fetchall()
     con.close()
+    return people
+
+def getPerson(personId):
+    con = sql.connect(path.join(ROOT, 'database.db'))
+    cur = con.cursor()
+    cur.execute('select * from people where id = ?', [personId])
+    person = cur.fetchall()
+    con.close()
+    return person
+
+def getPassengers(rideId, passengerLimit):
+    con = sql.connect(path.join(ROOT, 'database.db'))
+    cur = con.cursor()
+    cur.execute('select * from people join passengers on people.id = passengers.passengerId where passengers.rideId = ? limit ?', [rideId, passengerLimit])
+    passengers = cur.fetchall()
+    con.close()
+    return passengers
+

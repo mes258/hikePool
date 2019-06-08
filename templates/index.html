@@ -13,42 +13,26 @@
                                 <th>Date:</th>
                                 <th>Time:</th>
                                 <th>Destination:</th>
-                                <th>DriverName:</th>
-                                <th>DriverPhone:</th>
                                 <th>Pick Up Spot:</th>
-                                <th>Number of passengers:</th>
-                                <th>Passenger 1:</th>
-                                <th>Passenger 2:</th>
-                                <th>Passenger 3:</th>
-                                <th>Passenger 4:</th>
-                                <th>Passenger 5:</th>
-                                <th>Passenger 6:</th>
+                                <th>Driver Name:</th>
+                                <th>Spots Open:</th>
                                 <th>Join:</th>
-                                <th>Edit:</td>
+                                <th>Details:</td>
                             </tr>
-                            {% for car in cars %}
+                            {% for ride in rides %}
                             <tr>
-                                <td>{{car[1]}}</td>
-                                <td>{{car[19]}}</td>
-                                <td>{{car[2]}}</td>
-                                <td>{{car[3]}}</td>
-                                <td>{{car[4]}}</td>
-                                <td>{{car[5]}}</td>
-                                <td>{{"%d" %car[6]}}</td>
-                                <td>{{car[7]}} <br> {{car[13]}}</td>
-                                <td>{{car[8]}} <br> {{car[14]}}</td>
-                                <td>{{car[9]}} <br> {{car[15]}}</td>
-                                <td>{{car[10]}} <br> {{car[16]}}</td>
-                                <td>{{car[11]}} <br> {{car[17]}}</td>
-                                <td>{{car[12]}} <br> {{car[18]}}</td>
-                                <td><form action="/join/{{"%d" %car[0]}}" method="post">
+                                <td>{{ride[1]}}</td>
+                                <td>{{ride[2]}}</td>
+                                <td>{{ride[3]}}</td>
+                                <td>{{ride[4]}}</td>
+                                <td>{{drivers[(ride[5]-1)][1]}}</td>
+                                <td>{{ride[7]}}/{{ride[6]}}</td>
+                                <td><form action="/join/{{'{0}'.format(ride[0])}}" method="post">
                                     <input type="submit" value="Join">
                                 </form></td>
-                                <td style="padding-top: 5px;"><form action="/edit/{{"%d" %car[0]}}" method="post">
-                                    <input type="password" name="sc" placeholder="Secret Code" />
-                                    <input type="submit" value="Edit" /> 
-                                    </form>
-                                </td>
+                                <td><form action="/details/{{'{0}'.format(ride[0])}}" method="post">
+                                    <input type="submit" value="Details">
+                                </form></td>
                             </tr>
                             <tr> 
                                 <td colspan="15">
@@ -68,7 +52,7 @@
                             Where are you going? <input placeholder="Park/Trail" name = "destination"> <br>
                             What is your name? <input placeholder="Driver's Name" name = "name"> <br>
                             What is your phone number? <input placeholder="Driver's phone" name = "phone"> <br>
-                            Where are you leaving from? <input placeholder="Driver's Starting Location" name = "location"> <br>
+                            Where are you leaving from? <input placeholder="pickUpSpot" name = "pickUpSpot"> <br>
                             How many people can fit in your car? <input type="number" placeholder="Number of passengers" name = "passengerNum"> <br>
                             Add a secret code: <input type="password" name="secretCode"> Note: Remember this! You'll need it to edit your ride later. If left blank, anyone can edit this ride.<br>
                             <input type="submit" value="Add Ride">
@@ -77,71 +61,7 @@
                 </td> 
             </tr>
             <tr>
-                <td colspan="2">
-                    <div style=" position: inline; width: 100%; padding-top: 50px;">
-                        <h2>FAQ</h2>
-                        <table>
-                            <tr>
-                                <th>
-                                    How do I join a ride? 
-                                </th>
-                                <th>
-                                    How do I leave a ride? 
-                                </th>
-                                <th>
-                                    How do I create a new ride?
-                                </th>
-                                <th>
-                                    What is a secret code?
-                                </th>
-                                <th>
-                                    How do I edit a ride I made? 
-                                </th>
-                                <th>
-                                    How do I edit a ride I didn't make? 
-                                </th>
-                                <th>
-                                    How do I help make this site better?
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Click the "Join" button in the row of the ride you want to join. After filling in your name and phone number on the following page, you should see your name in a passenger spot on the main list. If the car is full, you cannot join it. 
-                                </td>
-                                <td>
-                                    Coming soon!
-                                </td>
-                                <td>
-                                    Fill in the information on the right side of the page and click "Add Ride".
-                                </td>
-                                <td>
-                                    A secret code is a code needed to edit your ride. As this is still a proof of concept, we don't have encryption set up yet, so do NOT use a password you've used on any other site.
-                                </td>
-                                <td>
-                                    Type your secret code in the box next to the edit button then click the edit button. If you did not make a secret code, just click the edit button. 
-                                </td>
-                                <td>
-                                    Ask the person who made it for the secret code. 
-                                </td>
-                                <td>
-                                    We are so glad you want to help! Right now, the site is in a proof of concept stage so the code is a bit of a mess. Given this goes well, it will be updated to a more scalable design. After the update, we welcome your contributions. Here is the <a href="https://github.com/mes258/hitcharide">source code.</a> Please submit your ideas as an issue and we'll update this section when we are open to pull requests.
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h2>Upcomming Features</h2>
-                    <ul>
-                        <li>Let riders leave rides (also using code words or let drivers remove them on the edit page)</li>
-                        <li>Recommended reimbursement per person (based on distance - about $0.4 * distance / # of people (about $0.1 per mile))</li>
-                        <li>Much, much betting formatting</li>
-                        <li>Filter, search, and sort the list of rides</li>
-                        <li>User login (maybe)</li>
-                    </ul>
-                </td>
+                Add requests down here!
             </tr>
         </table>
     </body>
