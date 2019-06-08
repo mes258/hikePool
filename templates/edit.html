@@ -2,23 +2,26 @@
 
 <html>
     <body>
-        {% for c in car %}
-        <h2>Edit {{c[3]}}'s car to {{c[2]}}!</h2>
+        {% for r in ride %}
+        <h2>Edit {{r[3]}}'s ride to {{r[2]}}!</h2>
 
-        <form action="/edit/{{'%d' %c[0]}}/submit" method='post'>
-            <form action="/" method="post">
-                When are you going? <input type="date" value="{{c[1]}}" name = "date"> <br>
-                At what time? <input type="time" value="{{c[19]}}" name="time"> <br>
-                Where are you going? <input value="{{c[2]}}" name = "destination"> <br>
-                What is your phone number? <input value="{{c[4]}}" name = "phone"> <br>
-                Where are you leaving from? <input value="{{c[5]}}" name = "location"> <br>
-                <input type="submit" value="Save changes">
-            </form>
+        <form action="/edit/{{'%d' %r[0]}}/submit" method='post'>
+            When are you going? <input type="date" value="{{r[1]}}" name = "date"> <br>
+            At what time? <input type="time" value="{{r[2]}}" name="time"> <br>
+            Where are you going? <input value="{{r[3]}}" name = "destination"> <br>
+            Where are you leaving from? <input value="{{r[4]}}" name = "pickUpSpot"> <br>
             <br>
             <br>
-            <form action="/delete/{{'%d' %c[0]}}" method="post">
-                <input type="submit" value="Delete Ride" />
-            </form>
+            {% for passenger in passengers %}
+                <input type="checkbox" name="removedPassenger" value="{{passenger[3]}}">{{passenger[1]}}: {{passenger[2]}}<br>
+            {% endfor %}
+            <input type="submit" value="Save changes">
+        </form>
+        <br>
+        <br>
+        <form action="/delete/{{'%d' %r[0]}}" method="post">
+            <input type="submit" value="Delete Ride" />
+        </form>
         {% endfor %}
     </body>
 </html>

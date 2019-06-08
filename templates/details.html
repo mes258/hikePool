@@ -26,9 +26,16 @@
                 <td><form action="/join/{{'{0}'.format(r[0])}}" method="post">
                     <input type="submit" value="Join">
                 </form></td>
-                <td><form action="/edit/{{'{0}'.format(r[0])}}" method="post">
-                    <input type="submit" value="Edit">
-                </form></td>
+                <td style="padding-top: 5px">
+                    <form action="/edit/{{'{0}'.format(r[0])}}" method="post">
+                    <input type="password" name="sc" placeholder="Secret Code" />
+                    <input type="submit" value="Edit" /> 
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </form>
+</td>
             </tr>
             <tr>
                 {% for passenger in passengers %}

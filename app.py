@@ -56,7 +56,9 @@ def edit_ride(rideId):
     secretCode = request.form.get('sc')
     ride = getRide(rideId)
     if ride[0][8] == None or secretCode == ride[0][8]:
-        return render_template('edit.html', ride=ride)
+        passengerLimit = ride[0][6]
+        passengers = getPassengers(rideId, passengerLimit)
+        return render_template('edit.html', ride=ride, passengers=passengers)
     else: 
         rides = getRides()
         return redirect('/')
@@ -66,9 +68,10 @@ def edit_ride_submit(rideId):
     date = request.form.get('date')
     time = request.form.get('time')
     destination = request.form.get('destination')
-    phone = request.form.get('phone')
-    location = request.form.get('location')
-    editRide(rideId, date, time, destination, phone, location)
+    pickUpSpot = request.form.get('pickUpSpot')
+    removedPassengers = request.form.getlist('removedPassenger')
+    print(removedPassengers) 
+    editRide(rideId, date, time, destination, pickUpSpot, removedPassengers)
 
     rides = getRides()
     return redirect('/')

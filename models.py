@@ -47,13 +47,18 @@ def deleteRide(rideId):
     con.commit()
     con.close()
 
-def editRide(rideId, date, time, destination, pickUpSpot):
+def editRide(rideId, date, time, destination, pickUpSpot, removedPassengers):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
     cur.execute('update rides set date = ? where id = ?', [date, rideId])
     cur.execute('update rides set time = ? where id = ?', [time, rideId])
     cur.execute('update rides set destination = ? where id = ?', [destination, rideId])
     cur.execute('update rides set pickUpSpot = ? where id = ?', [pickUpSpot, rideId])
+
+    for id in removedPassengers:
+        print("removing passenger maybe?: " + id)
+        cur.execute('delete from passengers where id = ?', [id])
+        cur.execute('update rides set spotsOpen = spotsOpen + 1 where id = ?', [rideId])
     con.commit()
     con.close()
 
@@ -88,6 +93,7 @@ def getPassengers(rideId, passengerLimit):
     cur = con.cursor()
     cur.execute('select * from people join passengers on people.id = passengers.passengerId where passengers.rideId = ? limit ?', [rideId, passengerLimit])
     passengers = cur.fetchall()
+    print(passengers)
     con.close()
     return passengers
 
