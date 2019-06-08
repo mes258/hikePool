@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html>
+    <body>
+        {% for r in ride %}
+        <h2>Drive the ride to {{r[3]}} on {{r[1]}} at {{r[2]}}!</h2>
+
+        <form action="/driveRide/{{'{0}'.format(r[0])}}/submit" method='post'>
+            <input placeholder='Name' name = 'name'>
+            <input placeholder='phone' name = 'phone'>
+            Add a secret code: <input type="password" name="secretCode"> Note: Remember this! You'll need it to edit your ride later. If left blank, anyone can edit this ride.<br>
+            <input type="submit" value="Submit">
+        </form>
+        {% endfor %}
+    </body>
+</html>

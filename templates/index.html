@@ -21,16 +21,16 @@
                             </tr>
                             {% for ride in rides %}
                             <tr>
-                                <td>{{ride[1]}}</td>
-                                <td>{{ride[2]}}</td>
-                                <td>{{ride[3]}}</td>
-                                <td>{{ride[4]}}</td>
-                                <td>{{drivers[(ride[5]-1)][1]}}</td>
-                                <td>{{ride[7]}}/{{ride[6]}}</td>
-                                <td><form action="/join/{{'{0}'.format(ride[0])}}" method="post">
+                                <td>{{ride[0][1]}}</td>
+                                <td>{{ride[0][2]}}</td>
+                                <td>{{ride[0][3]}}</td>
+                                <td>{{ride[0][4]}}</td>
+                                <td>{{ride[1][0][1]}}</td>
+                                <td>{{ride[0][7]}}/{{ride[0][6]}}</td>
+                                <td><form action="/join/{{'{0}'.format(ride[0][0])}}" method="post">
                                     <input type="submit" value="Join">
                                 </form></td>
-                                <td><form action="/details/{{'{0}'.format(ride[0])}}" method="post">
+                                <td><form action="/details/{{'{0}'.format(ride[0][0])}}" method="post">
                                     <input type="submit" value="Details">
                                 </form></td>
                             </tr>
@@ -61,7 +61,55 @@
                 </td> 
             </tr>
             <tr>
-                Add requests down here!
+                <td>
+                    <div style="border: 1px solid red; padding: 5px;">
+                        <h3>Don't have a car? Add a request!</h3>
+                        <form action="/createRequest" method="post">
+                            When do you want to go? <input type="date" placeholder="Date of Trip" name = "date"> <br>
+                            At what time? <input type="time" name="time"> <br>
+                            Where do you want to go? <input placeholder="Park/Trail" name = "destination"> <br>
+                            What is your name? <input placeholder="Your Name" name = "name"> <br>
+                            What is your phone number? <input placeholder="Your phone" name = "phone"> <br>
+                            Where do you want to leave from? <input placeholder="pickUpSpot" name = "pickUpSpot"> <br>
+                            <input type="submit" value="Add Request">
+                        </form>
+                    </div>
+                </td> 
+
+                <td>
+                    <div style="border: 1px solid green; float: left; padding: 5px;">
+                        <h3>If you have a car, try picking up a request!</h3>
+                        <table>
+                            <tr>
+                                <th>Date:</th>
+                                <th>Time:</th>
+                                <th>Destination:</th>
+                                <th>Pick Up Spot:</th>
+                                <th>Join:</th>
+                                <th>Details:</td>
+                            </tr>
+                            {% for request in requests %}
+                            <tr>
+                                <td>{{request[1]}}</td>
+                                <td>{{request[2]}}</td>
+                                <td>{{request[3]}}</td>
+                                <td>{{request[4]}}</td>
+                                <td><form action="/join/{{'{0}'.format(request[0])}}" method="post">
+                                    <input type="submit" value="Join">
+                                </form></td>
+                                <td><form action="/driveRide/{{'{0}'.format(request[0])}}" method="post">
+                                    <input type="submit" value="Drive this ride">
+                                </form></td>
+                            </tr>
+                            <tr> 
+                                <td colspan="15">
+                                    <hr>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>     
+                    </div> 
+                </td> 
             </tr>
         </table>
     </body>

@@ -14,7 +14,7 @@ def createRide(date, time, destination, pickUpSpot, driverId, passengerNum, spot
 def getRides():
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    cur.execute('select * from rides ORDER BY date, destination;')
+    cur.execute('select * from rides where not driverId = -1 ORDER BY date, destination;')
     rides = cur.fetchall()
     con.close()
     #Delete the first car if it is out of date
@@ -23,6 +23,27 @@ def getRides():
         if firstTripDate < datetime.now() - timedelta(days=1):
             deleteRide(rides[0][0])
     return rides
+
+def getRequests():
+    con = sql.connect(path.join(ROOT, 'database.db'))
+    cur = con.cursor() 
+    cur.execute('select * from rides where driverId = -1 ORDER BY date, destination;')
+    requests = cur.fetchall()
+    con.close()
+    #Delete the first request if it is out of date
+    if len(requests) > 0:
+        firstTripDate = datetime.strptime(requests[0][1], "%Y-%m-%d")
+        if firstTripDate < datetime.now() - timedelta(days=1):
+            deleteRide(requests[0][0])
+    return requests
+
+def driveRide(rideId, driverId, secretCode):
+    con = sql.connect(path.join(ROOT, 'database.db'))
+    cur = con.cursor()
+    cur.execute('update rides set driverId = ? where id = ?', [driverId, rideId])
+    cur.execute('update rides set secretCode = ? where id = ?', [secretCode, rideId])
+    con.commit()
+    con.close()
 
 def joinRide(rideId, passengerId):
     con = sql.connect(path.join(ROOT, 'database.db'))
@@ -100,6 +121,14 @@ def deletePeople(peopleIds):
         cur.execute('delete from people where id = ?', [id])
     con.commit()
     con.close()
+
+def getDriver(driverId):
+    con = sql.connect(path.join(ROOT, 'database.db'))
+    cur = con.cursor()
+    cur.execute('select * from people where id = ?', [driverId])
+    drivers = cur.fetchall()
+    con.close()
+    return drivers
 
 def getPassengers(rideId, passengerLimit):
     con = sql.connect(path.join(ROOT, 'database.db'))

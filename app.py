@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_cors import CORS
-from models import createRide, getRides, deleteRide, joinRide, getRide, editRide, createPerson, getPeople, getPerson, getPassengers
+from models import createRide, getRides, deleteRide, joinRide, getRide, editRide, createPerson, getPeople, getPerson, getPassengers, getRequests, driveRide, getDriver
 app = Flask(__name__)
 
 CORS(app)
@@ -24,8 +24,50 @@ def index():
         createRide(date, time, destination, pickUpSpot, newId, passengerNum, passengerNum, secretCode)
 
     rides = getRides()
+    print("RIDES::")
+    print(rides)
+    ridesWithDrivers = []
+    for ride in rides:
+        print("Getting driver for ride")
+        ridesWithDrivers.append((ride, getDriver(ride[5])))
+    print(ridesWithDrivers)
+    requests = getRequests()
+    return render_template('index.html', rides=ridesWithDrivers, requests=requests)
+
+@app.route('/createRequest', methods=['POST'])
+def create_request():
+    name = request.form.get('name')
+    phone = request.form.get('phone')
+    passengerId = createPerson(name, phone)
+
+    date = request.form.get('date')
+    time = request.form.get('time')
+    destination = request.form.get('destination')
+    pickUpSpot = request.form.get('pickUpSpot')
+    createRide(date, time, destination, pickUpSpot, -1, -1, 0, None)
+
+    rides = getRides()
     drivers = getPeople()
-    return render_template('index.html', rides=rides, drivers=drivers)
+    reqests = getRequests()
+    return redirect('/')
+
+@app.route('/driveRide/<rideId>', methods=['POST'])
+def drive_ride(rideId):
+    ride = getRide(rideId)
+    return render_template('driveRide.html', ride=ride)
+
+@app.route('/driveRide/<rideId>/submit', methods=['POST'])
+def drive_ride_submit(rideId):
+    name = request.form.get('name')
+    phone = request.form.get('phone')
+    secretCode = request.form.get('secretCode')
+
+    driverId = createPerson(name, phone)
+    driveRide(rideId, driverId, secretCode)
+    
+    rides = getRides()
+    return redirect('/')
+
 
 @app.route('/join/<rideId>', methods=['POST'])
 def join_ride(rideId):
