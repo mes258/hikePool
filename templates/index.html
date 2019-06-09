@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-
 <html>
+    <head>
+        <style>
+        body {background-color: lightgreen;}
+        h1   {color: blue;}
+        p    {color: red;}
+        td   {vertical-align: top; padding: 0px; }
+        td div form table tr td {width: 50%; vertical-align: middle;}
+        </style>
+    </head>
     <body>
-        <h1> Welcome to Hitch A Ride! <span style="color: grey;">(beta)</span></h1> 
+        <h1> Welcome to Hitch A Ride! <span style="color: grey; font-size: 15px;">(beta)</span></h1> 
         <table>
             <tr>
-                <td>
-                    <div style="border: 1px solid grey; float: left; padding: 5px;">
-                        <h3>Riders, Find and join your ride:</h3>
-                        <table>
+                <td style="width: 60%;">
+                    <div style="float: left; padding: 5px; width: 100%; text-align: center;">
+                        <h2><u>Upcomming Rides</u></h2>
+                        <table style="width: 100%">
                             <tr>
                                 <th>Date:</th>
                                 <th>Time:</th>
@@ -44,42 +52,81 @@
                     </div> 
                 </td> 
                 <td>
-                    <div style="border: 1px solid black;   padding: 5px;">
-                        <h3>Drivers, Add your ride:</h3>
+                    <div style="padding: 0px;">
+                        <h2 style="text-align: center;"><u>Add a New Ride</u></h2>
                         <form action="/" method="post">
-                            When are you going? <input type="date" placeholder="Date of Trip" name = "date"> <br>
-                            At what time? <input type="time" name="time"> <br>
-                            Where are you going? <input placeholder="Park/Trail" name = "destination"> <br>
-                            What is your name? <input placeholder="Driver's Name" name = "name"> <br>
-                            What is your phone number? <input placeholder="Driver's phone" name = "phone"> <br>
-                            Where are you leaving from? <input placeholder="pickUpSpot" name = "pickUpSpot"> <br>
-                            How many people can fit in your car? <input type="number" placeholder="Number of passengers" name = "passengerNum"> <br>
-                            Add a secret code: <input type="password" name="secretCode"> Note: Remember this! You'll need it to edit your ride later. If left blank, anyone can edit this ride.<br>
-                            <input type="submit" value="Add Ride">
+                            <table style="margin-left: 50px; margin-right: 50px;">
+                                <tr>
+                                    <td>When are you planning on going?</td>
+                                    <td><input type="date" name = "date"></td>
+                                </tr>
+                                <tr>
+                                    <td>At what time?</td>
+                                    <td><input type="time" name="time"></td>
+                                </tr>
+                                <tr>
+                                    <td>Where are you going?</td>
+                                    <td><input placeholder="Park/Trail" name = "destination"></td>
+                                </tr>
+                                <tr>
+                                    <td>What is your name?</td>
+                                    <td><input placeholder="Driver's Name" name = "name"></td>
+                                </tr>
+                                <tr>
+                                    <td>What is your phone number?</td>
+                                    <td><input placeholder="Driver's phone" name = "phone"></td>
+                                </tr>
+                                <tr>
+                                    <td>Where are you leaving from?</td>
+                                    <td><input placeholder="Meeting Location" name = "pickUpSpot"></td>
+                                </tr>
+                                <tr>
+                                    <td>How many people can fit in your car?</td>
+                                    <td><input type="number" placeholder="Number of passengers" name = "passengerNum"></td>
+                                </tr>
+                                <tr>
+                                    <td>Add a secret code:</td>
+                                    <td><input type="password" name="secretCode"> <span style="color: grey;">Note: Remember this! You'll need it to edit your ride later. If left blank, anyone can edit this ride.</span><br></td>
+                                </tr>
+                            </table>
+                            <input style="margin-left: 50px;" type="submit" value="Add Ride">
                         </form>
                     </div>
                 </td> 
             </tr>
+        </table>
+        <table>
             <tr>
-                <td>
-                    <div style="border: 1px solid red; padding: 5px;">
-                        <h3>Don't have a car? Add a request!</h3>
+                <td style="width: 40%;">
+                    <div style="float: left; padding: 5px; width: 100%;">
+                        <h2 style="text-align: center;"><u>Don't have a car? Add a request!</u></h2>
                         <form action="/createRequest" method="post">
-                            When do you want to go? <input type="date" placeholder="Date of Trip" name = "date"> <br>
-                            At what time? <input type="time" name="time"> <br>
-                            Where do you want to go? <input placeholder="Park/Trail" name = "destination"> <br>
-                            <!-- What is your name? <input placeholder="Your Name" name = "name"> <br>
-                            What is your phone number? <input placeholder="Your phone" name = "phone"> <br> -->
-                            Where do you want to leave from? <input placeholder="pickUpSpot" name = "pickUpSpot"> <br>
-                            <input type="submit" value="Add Request">
+                            <table style="margin-left: 30px;">
+                                <tr>
+                                    <td>When do you want to go? </td>
+                                    <td><input type="date" placeholder="Date of Trip" name = "date"></td>
+                                </tr>
+                                <tr>
+                                    <td>At what time?</td>
+                                    <td><input type="time" name="time"> <br></td>
+                                </tr>
+                                <tr>
+                                    <td>Where do you want to go?</td>
+                                    <td><input placeholder="Park/Trail" name = "destination"></td>
+                                </tr>
+                                <tr>
+                                    <td>Where do you want to leave from?</td>
+                                    <td><input placeholder="pickUpSpot" name = "pickUpSpot"></td>
+                                </tr>
+                            </table>
+                            <input style="margin-left: 30px;" type="submit" value="Add Request">
                         </form>
                     </div>
                 </td> 
-
-                <td>
-                    <div style="border: 1px solid green; float: left; padding: 5px;">
-                        <h3>If you have a car, try picking up a request!</h3>
-                        <table>
+                <td style="float: right;">
+                    <div style=" padding: 5px;">
+                        <h2 style="text-align: center;"><u>Pending Requests</u></h2>
+                        <table style="width: 150%; text-align: center;">
                             <tr>
                                 <th>Date:</th>
                                 <th>Time:</th>
@@ -115,5 +162,12 @@
                 </td> 
             </tr>
         </table>
+        <footer style="text-align: center;">
+                <form action="/privacy" method='post'>
+                    <input type="submit" value="Privacy Policy">
+                </form>
+            <a href="https://github.com/mes258/hitchARide/issues/new">Report a Bug</a> | 
+            <a href="https://github.com/mes258/hitchARide/">Source Code</a>
+        </footer> 
     </body>
 </html>

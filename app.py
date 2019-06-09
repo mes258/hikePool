@@ -126,5 +126,9 @@ def delete_ride(rideId):
     rides = getRides()
     return redirect('/')
 
+@app.route('/privacy', methods=['POST'])
+def privacy():
+    return render_template('privacy.html')
+
 if __name__ == '__main__':
     app.run(debug=True) 
