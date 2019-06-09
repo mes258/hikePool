@@ -24,27 +24,27 @@ def index():
         createRide(date, time, destination, pickUpSpot, newId, passengerNum, passengerNum, secretCode)
 
     rides = getRides()
-    print("RIDES::")
-    print(rides)
     ridesWithDrivers = []
     for ride in rides:
-        print("Getting driver for ride")
         ridesWithDrivers.append((ride, getDriver(ride[5])))
-    print(ridesWithDrivers)
     requests = getRequests()
+    #for req in requests:
+        #req = req[:6] + (abs(req[7]),) + req[8:]
     return render_template('index.html', rides=ridesWithDrivers, requests=requests)
 
 @app.route('/createRequest', methods=['POST'])
 def create_request():
-    name = request.form.get('name')
-    phone = request.form.get('phone')
-    passengerId = createPerson(name, phone)
+    # name = request.form.get('name')
+    # phone = request.form.get('phone')
+    # passengerId = createPerson(name, phone)
 
     date = request.form.get('date')
     time = request.form.get('time')
     destination = request.form.get('destination')
     pickUpSpot = request.form.get('pickUpSpot')
-    createRide(date, time, destination, pickUpSpot, -1, -1, 0, None)
+    rideId = createRide(date, time, destination, pickUpSpot, -1, 0, 0, None)
+
+    #joinRide(rideId, passengerId)
 
     rides = getRides()
     drivers = getPeople()
@@ -60,10 +60,11 @@ def drive_ride(rideId):
 def drive_ride_submit(rideId):
     name = request.form.get('name')
     phone = request.form.get('phone')
+    passengerNum = request.form.get('passengerNum')
     secretCode = request.form.get('secretCode')
 
     driverId = createPerson(name, phone)
-    driveRide(rideId, driverId, secretCode)
+    driveRide(rideId, driverId, passengerNum, secretCode)
     
     rides = getRides()
     return redirect('/')

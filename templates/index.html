@@ -16,8 +16,8 @@
                                 <th>Pick Up Spot:</th>
                                 <th>Driver Name:</th>
                                 <th>Spots Open:</th>
-                                <th>Join:</th>
-                                <th>Details:</td>
+                                <th></th>
+                                <th></td>
                             </tr>
                             {% for ride in rides %}
                             <tr>
@@ -68,8 +68,8 @@
                             When do you want to go? <input type="date" placeholder="Date of Trip" name = "date"> <br>
                             At what time? <input type="time" name="time"> <br>
                             Where do you want to go? <input placeholder="Park/Trail" name = "destination"> <br>
-                            What is your name? <input placeholder="Your Name" name = "name"> <br>
-                            What is your phone number? <input placeholder="Your phone" name = "phone"> <br>
+                            <!-- What is your name? <input placeholder="Your Name" name = "name"> <br>
+                            What is your phone number? <input placeholder="Your phone" name = "phone"> <br> -->
                             Where do you want to leave from? <input placeholder="pickUpSpot" name = "pickUpSpot"> <br>
                             <input type="submit" value="Add Request">
                         </form>
@@ -85,8 +85,9 @@
                                 <th>Time:</th>
                                 <th>Destination:</th>
                                 <th>Pick Up Spot:</th>
-                                <th>Join:</th>
-                                <th>Details:</td>
+                                <th>Number of interested <br> People (*-1):</th>
+                                <th></th>
+                                <th></td>
                             </tr>
                             {% for request in requests %}
                             <tr>
@@ -94,8 +95,10 @@
                                 <td>{{request[2]}}</td>
                                 <td>{{request[3]}}</td>
                                 <td>{{request[4]}}</td>
+                                <td>{{request[7]}}</td>
+                                <td></td>
                                 <td><form action="/join/{{'{0}'.format(request[0])}}" method="post">
-                                    <input type="submit" value="Join">
+                                    <input type="submit" value="I'm also interested!">
                                 </form></td>
                                 <td><form action="/driveRide/{{'{0}'.format(request[0])}}" method="post">
                                     <input type="submit" value="Drive this ride">

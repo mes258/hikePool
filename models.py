@@ -8,8 +8,10 @@ def createRide(date, time, destination, pickUpSpot, driverId, passengerNum, spot
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
     cur.execute('insert into rides (date, time, destination, pickUpSpot, driverId, numberOfPassengers, spotsOpen, secretCode) values(?,?,?,?,?,?,?,?)', (date, time, destination, pickUpSpot, driverId, passengerNum, passengerNum, secretCode))
+    newID = cur.lastrowid
     con.commit()
     con.close()
+    return newID;
 
 def getRides():
     con = sql.connect(path.join(ROOT, 'database.db'))
@@ -37,11 +39,13 @@ def getRequests():
             deleteRide(requests[0][0])
     return requests
 
-def driveRide(rideId, driverId, secretCode):
+def driveRide(rideId, driverId, passengerNum, secretCode):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
     cur.execute('update rides set driverId = ? where id = ?', [driverId, rideId])
     cur.execute('update rides set secretCode = ? where id = ?', [secretCode, rideId])
+    cur.execute('update rides set spotsOpen = spotsOpen + ? where id = ?', [passengerNum, rideId])
+    cur.execute('update rides set numberOfPassengers = ? where id = ?', [passengerNum, rideId])
     con.commit()
     con.close()
 
