@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 
 <html>
+    <head>
+        <style>
+            body {background-color: lightblue;}
+        </style>
+    </head>
     <body>
         {% for r in ride %}
         <h2>Join the car to {{r[3]}} on {{r[1]}} at {{r[2]}}!</h2>
-
+        <p>Enter your information below to join the ride:</p>
         <form action="/join/{{'{0}'.format(r[0])}}/submit" method='post'>
-            <input placeholder='Name' name = 'name'>
-            <input placeholder='phone' name = 'phone'>
-            <input type="submit" value="Submit">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td><input placeholder='Your Name' name = 'name'></td>
+                </tr>
+                <tr>
+                    <td>Phone Number:</td>
+                    <td><input placeholder='Your Phone' name = 'phone'></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Submit"></td>
+                </tr>
+            </table>
         </form>
         {% endfor %}
+        <form action="/" method="GET">
+            <td><input type="submit" value="Back to main page"></td>
+        </form>
     </body>
 </html>

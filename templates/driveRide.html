@@ -1,17 +1,41 @@
 <!DOCTYPE html>
 
 <html>
+    <head>
+        <style>
+            body {background-color: lightblue;}
+        </style>
+    </head>
     <body>
         {% for r in ride %}
         <h2>Drive the ride to {{r[3]}} on {{r[1]}} at {{r[2]}}!</h2>
-
+        <p>Enter your information to drive this ride.</p>
         <form action="/driveRide/{{'{0}'.format(r[0])}}/submit" method='post'>
-            Your name: <input placeholder='Name' name = 'name'>
-            Your phone number: <input placeholder='phone' name = 'phone'>
-            How many people can fit in your car? <input type="number" placeholder="Number of passengers" name = "passengerNum"> <br>
-            Add a secret code: <input type="password" name="secretCode"> Note: Remember this! You'll need it to edit your ride later. If left blank, anyone can edit this ride.<br>
-            <input type="submit" value="Submit">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td><input placeholder='Your Name' name = 'name'></td>
+                </tr>
+                <tr>
+                    <td>Phone Number:</td>
+                    <td><input placeholder='Your Phone' name = 'phone'></td>
+                </tr>
+                <tr>
+                    <td>How many people can fit in your car?:</td>
+                    <td><input type="number" placeholder="Number of passengers" name = "passengerNum" required></td>
+                </tr>
+                <tr>
+                    <td>Add a secret code:</td>
+                    <td><input type="password" name="secretCode"> Note: Remember this! You'll need it to edit your ride later. If left blank, anyone can edit this ride.</td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Submit"></td>
+                </tr>
+            </table>
         </form>
         {% endfor %}
+        <form action="/" method="GET">
+            <td><input type="submit" value="Back to main page"></td>
+        </form>
     </body>
 </html>

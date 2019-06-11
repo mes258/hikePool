@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 
 <html>
+    <head>
+        <style>
+            body {background-color: lightblue;}
+        </style>
+    </head>
     <body>
-        <table>
+        <h2><u>Ride Details:</u></h2>
+        <table style="text-align: center">
             <tr>
                 <th>Date:</th>
                 <th>Time:</th>
@@ -11,8 +17,8 @@
                 <th>Driver Name:</th>
                 <th>Driver Phone Number:</th>
                 <th>Spots Open:</th>
-                <th>Join:</th>
-                <th>Details:</td>
+                <th></th>
+                <th>Drivers, edit your ride:</td>
             </tr>
             {% for r in ride %}
             <tr>
@@ -24,7 +30,7 @@
                 <td>{{driver[0][2]}}</td>
                 <td>{{r[7]}}/{{r[6]}}</td>
                 <td><form action="/join/{{'{0}'.format(r[0])}}" method="post">
-                    <input type="submit" value="Join">
+                    <input type="submit" value="Join this ride">
                 </form></td>
                 <td style="padding-top: 5px">
                     <form action="/edit/{{'{0}'.format(r[0])}}" method="post">
@@ -32,14 +38,12 @@
                     <input type="submit" value="Edit" /> 
                     </form>
                 </td>
-            </tr>
-        </table>
-    </form>
-</td>
+        
             </tr>
             <tr>
+                <td><b>Passengers:</b></td>
                 {% for passenger in passengers %}
-                <td>{{passenger[1]}}: {{passenger[2]}}</td>
+                <td><u>{{passenger[1]}}</u>: {{passenger[2]}}</td>
                 {% endfor %}
             </tr>
             <tr> 
@@ -49,6 +53,10 @@
             </tr>
             {% endfor %}
         </table> 
+        <form action="/" method="GET">
+            <td><input type="submit" value="Back to main page"></td>
+        </form>
+
     </body>
 </html>
 
