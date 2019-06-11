@@ -13,6 +13,8 @@ Check it out at: http://hitcharide.pythonanywhere.com/
 - Better formatting
 - Let users Filter, search, and sort the list of rides
 - Perhaps full log in system with cookies and stuff. That seems a bit unnecessary though...
+- Hike reviews
+- Show popular hikes when the user is typing in a destination name
 
 ## Want to help out? 
 Awesome, thanks! Please submit your ideas as an issue or pull requests with updated code. 
