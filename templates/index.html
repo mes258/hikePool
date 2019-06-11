@@ -58,27 +58,27 @@
                             <table style="margin-left: 50px; margin-right: 50px;">
                                 <tr>
                                     <td>When are you planning on going?</td>
-                                    <td><input type="date" name = "date"></td>
+                                    <td><input type="date" name = "date" required></td>
                                 </tr>
                                 <tr>
                                     <td>At what time?</td>
-                                    <td><input type="time" name="time"></td>
+                                    <td><input type="time" name="time" required></td>
                                 </tr>
                                 <tr>
                                     <td>Where are you going?</td>
-                                    <td><input placeholder="Park/Trail" name = "destination"></td>
+                                    <td><input placeholder="Park/Trail" name = "destination" required></td>
                                 </tr>
                                 <tr>
                                     <td>What is your name?</td>
-                                    <td><input placeholder="Driver's Name" name = "name"></td>
+                                    <td><input placeholder="Driver's Name" name = "name" required></td>
                                 </tr>
                                 <tr>
                                     <td>What is your phone number?</td>
-                                    <td><input placeholder="Driver's phone" name = "phone"></td>
+                                    <td><input placeholder="Driver's phone" name = "phone" required></td>
                                 </tr>
                                 <tr>
                                     <td>Where are you leaving from?</td>
-                                    <td><input placeholder="Meeting Location" name = "pickUpSpot"></td>
+                                    <td><input placeholder="Meeting Location" name = "pickUpSpot" required></td>
                                 </tr>
                                 <tr>
                                     <td>How many people can fit in your car?</td>
@@ -108,19 +108,19 @@
                             <table style="margin-left: 30%; margin-right: 30%;">
                                 <tr>
                                     <td>When do you want to go? </td>
-                                    <td><input type="date" placeholder="Date of Trip" name = "date" pattern="(?:19|20)[0-9]{2}/(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])/(?:30))|(?:(?:0[13578]|1[02])-31))"></td>
+                                    <td><input type="date" placeholder="Date of Trip" name = "date" required></td>
                                 </tr>
                                 <tr>
                                     <td>At what time?</td>
-                                    <td><input type="time" name="time"> <br></td>
+                                    <td><input type="time" name="time" required> <br></td>
                                 </tr>
                                 <tr>
                                     <td>Where do you want to go?</td>
-                                    <td><input placeholder="Park/Trail" name = "destination"></td>
+                                    <td><input placeholder="Park/Trail" name = "destination" required></td>
                                 </tr>
                                 <tr>
                                     <td>Where do you want to leave from?</td>
-                                    <td><input placeholder="pickUpSpot" name = "pickUpSpot"></td>
+                                    <td><input placeholder="pickUpSpot" name = "pickUpSpot" required></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -168,6 +168,21 @@
                         </table>     
                     </div> 
                 </td> 
+            </tr>
+        </table>
+        <h2 style="text-align: center"><u>FAQ:</u></h2>
+        <table>
+            <tr>
+                <th>What is this?</th>
+                <th>What do I do with it? </th>
+                <th>What is it for?</th>
+                <th>Can I help make it better?</th>
+            </tr>
+            <tr>
+                <td style="width: 23%">Hitch A Ride is a simple webapp for matching drivers with riders. If you don't have a car, join one of the rides listed above, or create a request for a ride to a hike you want to do. Hopefully, someone with a car will be open to driving with you there. </td>
+                <td style="width: 23%">If you have a car, let people know where you are driving to go hiking. People without cars can join your ride and you'll get to meet some awesome hiking partners! <br> If you don't have a car, join a ride or create a request. </td>
+                <td style="width: 23%">Right now, it's for people to plan hiking trips on the weekend. It was made to simplify the hiking experience for everyone. </td>
+                <td style="width: 23%">YES!! This project is open source and you are welcome to help out! Checkout the links to the source code below. </td>
             </tr>
         </table>
         <footer style="text-align: center; margin-top: 50px;">

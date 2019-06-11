@@ -72,7 +72,6 @@ def deleteRide(rideId):
     con.commit()
     con.close()
     passengers = getPassengers(rideId, 10000)
-    print(passengers)
     passIds=(passenger[3] for passenger in passengers)
     peopleIds=(passenger[0] for passenger in passengers)
     deletePassengers(passIds)

@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 
 <html>
+    <head>
+        <style>
+            body {background-color: lightblue;}
+        </style>
+    </head>
     <body>
         {% for r in ride %}
-        <h2>Edit {{r[3]}}'s ride to {{r[2]}}!</h2>
+        <h2>Edit your ride to {{r[3]}}!</h2>
 
         <form action="/edit/{{'%d' %r[0]}}/submit" method='post'>
-            When are you going? <input type="date" value="{{r[1]}}" name = "date"> <br>
-            At what time? <input type="time" value="{{r[2]}}" name="time"> <br>
-            Where are you going? <input value="{{r[3]}}" name = "destination"> <br>
-            Where are you leaving from? <input value="{{r[4]}}" name = "pickUpSpot"> <br>
+            When are you going? <input type="date" value="{{r[1]}}" name = "date" required> <br>
+            At what time? <input type="time" value="{{r[2]}}" name="time" required> <br>
+            Where are you going? <input value="{{r[3]}}" name = "destination" required> <br>
+            Where are you leaving from? <input value="{{r[4]}}" name = "pickUpSpot" required> <br>
             <br>
             <br>
+            <u>Check the box next to a passenger to remove them from the ride. </u> <br>
             {% for passenger in passengers %}
                 <input type="checkbox" name="removedPassenger" value="{{[passenger[3], passenger[0]]}}">{{passenger[1]}}: {{passenger[2]}}<br>
             {% endfor %}
