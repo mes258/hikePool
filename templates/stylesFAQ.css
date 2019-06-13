@@ -1,0 +1,29 @@
+.faqSection {
+  background-color: var(--secondary);
+  border-radius: 10px;
+  color: white;
+  padding: 20px;
+  margin: 10px 0;
+}
+
+.faqSectionName {
+  font-size: 30px;
+  border-bottom: 1px solid white;
+}
+
+.faq {
+  padding: 10px 0;
+}
+
+.question {
+  font-size: 20px;
+}
+
+.question:hover {
+  cursor: pointer;
+}
+
+.answer {
+  display: none;
+  padding-left: 20px;
+}

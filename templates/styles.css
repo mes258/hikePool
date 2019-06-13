@@ -1,0 +1,47 @@
+:root {
+  --highlight: #ffe2d1;
+  --highlight2: #e1f0c4;
+  --primary: #6bab90;
+  --primary-dark: #55917f;
+  --secondary: #5e4c5a;
+  --secondary-dark: #2b272a;
+  --secondary-light: #b19ead;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Didact Gothic', sans-serif;
+}
+
+a {
+  color: var(--highlight2);
+}
+
+a:hover {
+  color: var(--highlight);
+  text-decoration: none;
+}
+
+nav {
+  background-color: var(--secondary-dark);
+}
+
+nav li {
+  padding: 0 20px;
+}
+
+nav a {
+  transition: color 0.3s;
+}
+
+nav a:hover{
+  color: var(--highlight);
+}
+
+.container {
+  padding-top: 50px;
+}

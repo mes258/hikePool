@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hitch A Ride | FAQ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <link rel="stylesheet" href="stylesFAQ.css" type="text/css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="index.html">Hitch A Ride</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Join a Ride</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Request a Ride</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="privacy.html">Privacy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="faq.html">FAQ</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-12 col-lg-9">
+          <div id="faqContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    <script>
+      // list of all questions and answers and category of each
+      let qa = [
+        {
+          'sectionName': 'General',
+          'sectionQs': [
+            {
+              'q': 'What is Hitch a Ride?',
+              'a': 'Hitch A Ride is a simple webapp for matching drivers with riders. If you don\'t have a car, join one of the rides listed above, or create a request for a ride to a hike you want to do. Hopefully, someone with a car will be open to driving with you there.'
+            },
+            {
+              'q': 'How do I use Hitch a Ride?',
+              'a': 'If you have a car, let people know where you are driving to go hiking. People without cars can join your ride and you\'ll get to meet some awesome hiking partners! If you don\'t have a car, join a ride or create a request.'
+            }
+          ]
+        },
+        {
+          'sectionName': 'For Drivers',
+          'sectionQs': [
+            {
+              'q': 'How do I edit or cancel a ride?',
+              'a': 'Click on Details > Edit to edit your ride. You\ll need your secret code to access the edit page.'
+            }
+          ]
+        },
+        {
+          'sectionName': 'For Riders',
+          'sectionQs': [
+            {
+              'q': 'Can I leave a ride I joined?',
+              'a': 'Your driver can! Just ask them to remove you from the ride. Drivers, you can remove someone from a ride in the edit section.'
+            }
+          ]
+        },
+        {
+          'sectionName': 'For Developers',
+          'sectionQs': [
+            {
+              'q': 'Can I help make Hitch A Ride better?',
+              'a': 'YES!! This project is open source and you are welcome to help out! Checkout the <a href="https://github.com/mes258/hitchARide">Github repository</a>.'
+            }
+          ]
+        }
+      ];
+
+      $(document).ready(function() {
+
+        // generate all the questions and answers
+        let questionHTML = '';
+        $.each(qa, function(index, section) {
+          questionHTML += `<div class="faqSection">
+          <div class="faqSectionName">` + section["sectionName"] + `</div>
+            <div class="questionList">`;
+              $.each(section['sectionQs'], function(index, qaPair) {
+                questionHTML += `
+                <div class="faq">
+                  <div class="question">` + qaPair['q'] + `</div>
+                  <div class="answer">` + qaPair['a'] + `</div>
+                </div>`;
+              });
+              questionHTML += `
+              </div>
+            </div>`;
+        });
+        $('#faqContent').append(questionHTML);
+
+        // when user clicks on question, show answer
+        $('#faqContent').on('click', '.question', function() {
+          console.log($(this))
+          $(this).next().toggle();
+        });
+      });
+    </script>
+  </body>
+</html>
