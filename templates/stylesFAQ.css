@@ -1,5 +1,5 @@
 .faqSection {
-  background-color: var(--secondary);
+  background-image: linear-gradient(var(--secondary), #383136);
   border-radius: 10px;
   color: white;
   padding: 20px;

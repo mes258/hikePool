@@ -55,7 +55,7 @@ label {
 }
 
 .container {
-  padding-top: 50px;
+  /* padding-top: 50px; */
 }
 
 .btn-secnd {
@@ -67,4 +67,27 @@ label {
 .btn-secnd:hover {
   background-color: var(--secondary-light);
   color: white;
+}
+
+.header {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+.header img {
+  width: 100%;
+}
+
+.header h1 {
+  font-size: 60px;
+  text-shadow: 10px 10px 10px var(--secondary);
+  color: white;
+  position: absolute;
+  bottom: 30%;
+  left: 10%;
+}
+
+.headerNoPic {
+  padding-top: 50px;
 }

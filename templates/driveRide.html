@@ -39,8 +39,8 @@
       <div class="row d-flex justify-content-center">
         <div class="col-12 col-lg-6">
           {% for r in ride %}
-          <h1 class="text-center">Drive the ride to {{r[3]}}</h1>
-          <h3 class="text-center">on {{r[1]}} at {{r[2]}}!</h3>
+          <h1 class="text-center">Drive the Ride to {{r[3]}}</h1>
+          <h3 class="text-center">on {{r[1]}} at {{r[2]}}</h3>
           <h4 class="text-center">Enter your information to drive this ride.</h4>
           <form action="/driveRide/{{'{0}'.format(r[0])}}/submit" method="post">
               <div class="form-group row d-flex justify-content-center">
@@ -60,7 +60,7 @@
                 <input id="secretCode" class="col-12 col-md-6 form-control" type="password" name="secretCode" required>
                 <small class="form-text text-muted text-center">Note: Remember your secret code! You'll need it to edit your ride later.<br>If left blank, anyone can edit this ride.</small>
               </div>
-              
+
               <div class="form-group row d-flex justify-content-center">
                 <input class="btn btn-secnd" type="submit" value="Submit">
               </div>

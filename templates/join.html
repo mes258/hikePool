@@ -1,33 +1,71 @@
 <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hitch a Ride | Drive Ride</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="index.html">Hitch A Ride</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="viewRides.html">View Rides</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="drivers.html">Add a Ride</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="riders.html">Join a Ride</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="privacy.html">Privacy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="faq.html">FAQ</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-<html>
-    <head>
-        <style>
-            body {background-color: lightblue;}
-        </style>
-    </head>
-    <body>
-        {% for r in ride %}
-        <h2>Join the car to {{r[3]}} on {{r[1]}} at {{r[2]}}!</h2>
-        <p>Enter your information below to join the ride:</p>
-        <form action="/join/{{'{0}'.format(r[0])}}/submit" method='post'>
-            <table>
-                <tr>
-                    <td>Name:</td>
-                    <td><input placeholder='Your Name' name = 'name' required></td>
-                </tr>
-                <tr>
-                    <td>Phone Number:</td>
-                    <td><input placeholder='Your Phone' name = 'phone' required></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Submit"></td>
-                </tr>
-            </table>
-        </form>
-        {% endfor %}
-        <form action="/" method="GET">
-            <td><input type="submit" value="Back to main page"></td>
-        </form>
-    </body>
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-12 col-lg-6">
+          {% for r in ride %}
+          <h1 class="text-center">Join the car to {{r[3]}}</h1>
+          <h3 class="text-center">on {{r[1]}} at {{r[2]}}</h3>
+          <h4 class="text-center">Enter your information below to join the ride.</h4>
+          <form action="/join/{{'{0}'.format(r[0])}}/submit" method="post">
+              <div class="form-group row d-flex justify-content-center">
+                <label for="riderName" class="col-12 col-md-6">Name</label>
+                <input id="riderName" class="col-12 col-md-6 form-control" type="text" placeholder="Your Name" name="name" required>
+              </div>
+              <div class="form-group row d-flex justify-content-center">
+                <label for="phone" class="col-12 col-md-6">Phone Number</label>
+                <input id="phone" class="col-12 col-md-6 form-control" type="text" placeholder="Your Number" name="phone" required>
+              </div>
+
+              <div class="form-group row d-flex justify-content-center">
+                <input class="btn btn-secnd" type="submit" value="Submit">
+              </div>
+          </form>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html>
