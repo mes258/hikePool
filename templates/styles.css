@@ -17,6 +17,10 @@ body {
   font-family: 'Didact Gothic', sans-serif;
 }
 
+h3 {
+  padding-bottom: 15px;
+}
+
 a {
   color: var(--highlight2);
 }
@@ -42,6 +46,25 @@ nav a:hover{
   color: var(--highlight);
 }
 
+section {
+  margin-top: 30px;
+}
+
+label {
+  text-align: right;
+}
+
 .container {
   padding-top: 50px;
+}
+
+.btn-secnd {
+  background-color: var(--secondary);
+  border: none;
+  color: white;
+}
+
+.btn-secnd:hover {
+  background-color: var(--secondary-light);
+  color: white;
 }
