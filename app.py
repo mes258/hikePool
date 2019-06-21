@@ -34,6 +34,30 @@ def index():
  
     return render_template('index.html', rides=ridesWithDrivers, requests=requests)
 
+@app.route('/getRide/<rideId>', methods=['POST'])
+def get_Ride(rideId):
+    ride = getRide(rideId)
+    driver = []
+    if(ride[5] != None):
+        driver = getDriver(ride[5])
+    fullRide = [].append((ride, driver))
+    
+    return json.dumps([dumpRide(r) for r in fullRide])
+
+@app.route('/getRides', methods=['POST'])
+def get_Rides():
+    rides = getRides()
+    ridesWithDrivers = []
+    for ride in rides:
+        ridesWithDrivers.append((ride, getDriver(ride[5])))
+    return json.dumps([dumpRide(r) for r in ridesWithDrivers])
+
+
+@app.route('/getRequests', methods=['POST'])
+def get_Requests():
+    requests = getRequests()
+    return json.dumps([dumpRide(r) for r in requests])
+
 @app.route('/createRequest', methods=['POST'])
 def create_request():
     date = request.form.get('date')
@@ -126,6 +150,29 @@ def delete_ride(rideId):
 @app.route('/privacy', methods=['POST'])
 def privacy():
     return render_template('privacy.html')
+
+def dumpRides(ride):
+    return {"ride": {'date':ride[0][1],
+                    'time':ride[0][2],
+                    'destination':ride[0][3],
+                    'pickUpSpot':ride[0][4],
+                    'numberOfPassengers': ride[0][6],
+                    'spotsOpen':ride[0][7],
+                    },
+            "driver": {'name':ride[1][0],
+                       'phone':ride[1][1]
+                    }
+            } if ride[0][5] != None else {"ride": {'date':ride[0][1],
+                    'time':ride[0][2],
+                    'destination':ride[0][3],
+                    'pickUpSpot':ride[0][4],
+                    'numberOfPassengers': ride[0][6],
+                    'spotsOpen':ride[0][7],
+                    },
+            "driver": {'name':'N/A',
+                       'phone':'N/A'
+                    }
+            }
 
 if __name__ == '__main__':
     app.run(debug=True) 
