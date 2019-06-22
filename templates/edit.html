@@ -1,33 +1,96 @@
 <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hitch a Ride | Edit Ride</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="index.html">Hitch A Ride</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="viewRides.html">View Rides</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="drivers.html">Add a Ride</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="riders.html">Join a Ride</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="privacy.html">Privacy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="faq.html">FAQ</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-<html>
-    <head>
-        <style>
-            body {background-color: lightblue;}
-        </style>
-    </head>
-    <body>
-        {% for r in ride %}
-        <h2>Edit your ride to {{r[3]}}!</h2>
+    <div class="container">
+      <div class="row d-flex justify-content-center headerNoPic">
+        <div class="col-12 col-lg-6">
+          {% for r in ride %}
+          <h1 class="text-center">Edit Your Ride to {{r[3]}}</h1>
+          <form action="/edit/{{'%d' %r[0]}}/submit" method="post">
+              <div class="form-group row d-flex justify-content-center">
+                <label for="where" class="col-12 col-md-6">Where do you want to go?</label>
+                <input id="where" class="col-12 col-md-6 form-control" type="text" value="{{r[3]}}" name="destination" required>
+              </div>
+              <div class="form-group row d-flex justify-content-center">
+                <label for="date" class="col-12 col-md-6">When do you want to go?</label>
+                <input id="date" class="col-12 col-md-6 form-control" type="date" value="{{r[1]}}" name="date" required>
+              </div>
+              <div class="form-group row d-flex justify-content-center">
+                <label for="time" class="col-12 col-md-6">At what time?</label>
+                <input id="time" class="col-12 col-md-6 form-control" type="time" value="{{r[2]}}" name="time" required>
+              </div>
+              <div class="form-group row d-flex justify-content-center">
+                <label for="pickup" class="col-12 col-md-6">Where do you want to leave from?</label>
+                <input id="pickup" class="col-12 col-md-6 form-control" type="text" value="{{r[4]}}" name="pickUpSpot" required>
+              </div>
+              <div class="form-group row d-flex justify-content-center">
+                <label class="col-12">Check the box next to a passenger to remove them from the ride.</label>
+                {% for passenger in passengers %}
+                <div class="col-8">
+                  <!-- <label for="passenger"></label> -->
+                  <input id="" class="col-8 form-control" type="checkbox" name="removedPassenger" value="{{[passenger[3], passenger[0]]}}">
+                  <span class="text-left">
+                    {{passenger[1]}}: {{passenger[2]}}
+                  </span>
+                </div>
+                {% endfor %}
+              </div>
 
-        <form action="/edit/{{'%d' %r[0]}}/submit" method='post'>
-            When are you going? <input type="date" value="{{r[1]}}" name = "date" required> <br>
-            At what time? <input type="time" value="{{r[2]}}" name="time" required> <br>
-            Where are you going? <input value="{{r[3]}}" name = "destination" required> <br>
-            Where are you leaving from? <input value="{{r[4]}}" name = "pickUpSpot" required> <br>
-            <br>
-            <br>
-            <u>Check the box next to a passenger to remove them from the ride. </u> <br>
-            {% for passenger in passengers %}
-                <input type="checkbox" name="removedPassenger" value="{{[passenger[3], passenger[0]]}}">{{passenger[1]}}: {{passenger[2]}}<br>
-            {% endfor %}
-            <input type="submit" value="Save changes">
-        </form>
-        <br>
-        <br>
-        <form action="/delete/{{'%d' %r[0]}}" method="post">
-            <input type="submit" value="Delete Ride" />
-        </form>
-        {% endfor %}
-    </body>
+              <div class="form-group row d-flex justify-content-center">
+                <input class="btn btn-secnd" type="submit" value="Save changes">
+              </div>
+          </form>
+          <hr>
+          <form action="/delete/{{'%d' %r[0]}}" method="post">
+            <div class="form-group row d-flex justify-content-center">
+              <input class="btn btn-danger" type="submit" value="Delete Ride" />
+            </div>
+          </form>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="requests.js"></script>
+  </body>
 </html>

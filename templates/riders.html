@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hitch a Ride | Drive Ride</title>
+    <title>Hitch a Ride | Riders</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" type="text/css">
@@ -23,7 +23,7 @@
             <a class="nav-link" href="drivers.html">Add a Ride</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="riders.html">Join a Ride</a>
+            <a class="nav-link active" href="riders.html">Join a Ride</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="privacy.html">Privacy</a>
@@ -35,39 +35,74 @@
       </div>
     </nav>
 
-    <div class="container">
-      <div class="row d-flex justify-content-center headerNoPic">
-        <div class="col-12 col-lg-6">
-          {% for r in ride %}
-          <h1 class="text-center">Drive the Ride to {{r[3]}}</h1>
-          <h3 class="text-center">on {{r[1]}} at {{r[2]}}</h3>
-          <h4 class="text-center">Enter your information to drive this ride.</h4>
-          <form action="/driveRide/{{'{0}'.format(r[0])}}/submit" method="post">
-              <div class="form-group row d-flex justify-content-center">
-                <label for="driverName" class="col-12 col-md-6">Name</label>
-                <input id="driverName" class="col-12 col-md-6 form-control" type="text" placeholder="Your Name" name="name" required>
-              </div>
-              <div class="form-group row d-flex justify-content-center">
-                <label for="phone" class="col-12 col-md-6">Phone Number</label>
-                <input id="phone" class="col-12 col-md-6 form-control" type="text" placeholder="Your Number" name="phone" required>
-              </div>
-              <div class="form-group row d-flex justify-content-center">
-                <label for="passengerNum" class="col-12 col-md-6">How many people can fit in your car?</label>
-                <input id="passengerNum" class="col-12 col-md-6 form-control" type="number" value="3" name="passengerNum" required>
-              </div>
-              <div class="form-group row d-flex justify-content-center">
-                <label for="secretCode" class="col-12 col-md-6">Add a secret code</label>
-                <input id="secretCode" class="col-12 col-md-6 form-control" type="password" name="secretCode" required>
-                <small class="form-text text-muted text-center">Note: Remember your secret code! You'll need it to edit your ride later.<br>If left blank, anyone can edit this ride.</small>
-              </div>
+    <div class="header">
+      <img src="../lib/mountain4.jpg" alt="Mountains">
+      <h1>For Riders</h1>
+    </div>
 
+    <div class="container">
+      <section>
+        <h3>Join a Ride</h3>
+        <table class="table table-striped table-hover">
+            <thead>
+              <th>Destination</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Pick Up Spot</th>
+              <th>Driver Name</th>
+              <th>Spots Open</th>
+              <th></th>
+              <th></th>
+            </thead>
+            {% for ride in rides %}
+            <tr>
+              <td>{{ride[0][3]}}</td>
+              <td>{{ride[0][1]}}</td>
+              <td>{{ride[0][2]}}</td>
+              <td>{{ride[0][4]}}</td>
+              <td>{{ride[1][0][1]}}</td>
+              <td>{{ride[0][7]}}/{{ride[0][6]}}</td>
+              <td>
+                <form action="/join/{{'{0}'.format(ride[0][0])}}" method="post">
+                  <input class="btn btn-secnd" type="submit" value="Join">
+                </form>
+              </td>
+              <td>
+                <form action="/details/{{'{0}'.format(ride[0][0])}}" method="post">
+                  <input class="btn btn-secnd" type="submit" value="Details">
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+        </table>
+      </section>
+
+      <section class="row d-flex justify-content-center">
+        <div class="col-12 col-md-6">
+          <h3 class="text-center">Add a Ride Request</h3>
+          <form action="/createRequest" method="post">
               <div class="form-group row d-flex justify-content-center">
-                <input class="btn btn-secnd" type="submit" value="Submit">
+                <label for="where" class="col-12 col-md-6">Where do you want to go?</label>
+                <input id="where" class="col-12 col-md-6 form-control" type="text" placeholder="Park/Trail" name="destination" required>
+              </div>
+              <div class="form-group row d-flex justify-content-center">
+                <label for="date" class="col-12 col-md-6">When do you want to go?</label>
+                <input id="date" class="col-12 col-md-6 form-control" type="date" placeholder="Date of Trip" name="date" required>
+              </div>
+              <div class="form-group row d-flex justify-content-center">
+                <label for="time" class="col-12 col-md-6">At what time?</label>
+                <input id="time" class="col-12 col-md-6 form-control" type="time" name="time" required>
+              </div>
+              <div class="form-group row d-flex justify-content-center">
+                <label for="pickup" class="col-12 col-md-6">Where do you want to leave from?</label>
+                <input id="pickup" class="col-12 col-md-6 form-control" type="text" placeholder="Pick Up Spot" name="pickUpSpot" required>
+              </div>
+              <div class="form-group row d-flex justify-content-center">
+                <input class="btn btn-secnd" type="submit" value="Add Request">
               </div>
           </form>
-          {% endfor %}
         </div>
-      </div>
+      </section>
     </div>
 
     <script
