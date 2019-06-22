@@ -21,7 +21,7 @@
         <section>
             <h3>Ride Requests</h3>
             <table class="table table-striped table-hover">
-                {% if requestNum == 0 %}
+                {% if reqeusts|length == 0 %}
                     <p>There are no ride requests.</p>
                 {% else %}
                     <thead>

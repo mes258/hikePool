@@ -23,7 +23,6 @@ def index():
         passengerNum = request.form.get('passengerNum')
         sc = request.form.get('secretCode')
         secretCode = sha256_crypt.encrypt(sc)
-        print(secretCode)
         createRide(date, time, destination, pickUpSpot, newId, passengerNum, passengerNum, secretCode)
 
     rides = getRides()
@@ -41,7 +40,6 @@ def get_Ride(rideId):
     if(ride[5] != None):
         driver = getDriver(ride[5])
     fullRide = [].append((ride, driver))
-    print("fullRide")
     return json.dumps([dumpRide(r) for r in fullRide])
 
 @app.route('/getRides', methods=['POST'])
@@ -118,7 +116,6 @@ def addRide():
     passengerNum = request.form.get('passengerNum')
     sc = request.form.get('secretCode')
     secretCode = sha256_crypt.encrypt(sc)
-    print(secretCode)
     createRide(date, time, destination, pickUpSpot, newId, passengerNum, passengerNum, secretCode)
     return redirect('/viewRides')
 
@@ -170,10 +167,8 @@ def viewRides():
     ridesWithDrivers = []
     for ride in rides:
         ridesWithDrivers.append((ride, getDriver(ride[5])))
-    for r in ridesWithDrivers:
-        print(r)
     requests = getRequests()
-    return render_template('viewRides.html', rides=ridesWithDrivers, requests=requests, rideNum=len(rides), requestNum=len(requests))
+    return render_template('viewRides.html', rides=ridesWithDrivers, requests=requests)
 
 @app.route('/privacy', methods=['GET'])
 def privacy():
@@ -186,7 +181,7 @@ def faq():
 @app.route('/drivers', methods=['GET', 'POST'])
 def drivers():
     requests=getRequests()
-    return render_template('drivers.html', requests=requests, requestNum=len(requests))
+    return render_template('drivers.html', requests=requests)
 
 @app.route('/riders', methods=['GET', 'POST'])
 def riders():
@@ -194,7 +189,7 @@ def riders():
     ridesWithDrivers = []
     for ride in rides:
         ridesWithDrivers.append((ride, getDriver(ride[5])))
-    return render_template('riders.html', rides=ridesWithDrivers, rideNum=len(rides))
+    return render_template('riders.html', rides=ridesWithDrivers)
 
 @app.route('/nav/<tab>', methods=['GET', 'POST'])
 def nav(tab):

@@ -102,7 +102,11 @@
             <tr>
               <td colspan="2" class="text-center">
                 <form action="/join/{{'{0}'.format(r[0])}}" method="post">
-                    <input class="btn btn-secnd" type="submit" value="Join this ride">
+                    {% if passengers|length == r[6] %}
+                        <input class="btn btn-secnd" type="submit" value="Join the waitlist">
+                    {% else %}
+                        <input class="btn btn-secnd" type="submit" value="Join this ride">
+                    {% endif %}
                 </form>
               </td>
             </tr>
@@ -111,7 +115,6 @@
         </div>
       </div>
     </div>
-    <p>{{waitList}}</p>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
