@@ -31,7 +31,7 @@ def index():
     for ride in rides:
         ridesWithDrivers.append((ride, getDriver(ride[5])))
     requests = getRequests()
- 
+
     return render_template('index.html', rides=ridesWithDrivers, requests=requests)
 
 @app.route('/getRide/<rideId>', methods=['POST'])
@@ -41,7 +41,7 @@ def get_Ride(rideId):
     if(ride[5] != None):
         driver = getDriver(ride[5])
     fullRide = [].append((ride, driver))
-    
+
     return json.dumps([dumpRide(r) for r in fullRide])
 
 @app.route('/getRides', methods=['POST'])
@@ -86,10 +86,9 @@ def drive_ride_submit(rideId):
 
     driverId = createPerson(name, phone)
     driveRide(rideId, driverId, passengerNum, secretCode)
-    
+
     rides = getRides()
     return redirect('/')
-
 
 @app.route('/join/<rideId>', methods=['POST'])
 def join_ride(rideId):
@@ -102,9 +101,26 @@ def join_ride_submit(rideId):
     phone = request.form.get('phone')
     passengerId = createPerson(name, phone)
     joinRide(rideId, passengerId)
-    
+
     rides = getRides()
     return redirect('/')
+
+@app.route('/addRide', methods=['POST'])
+def addRide():
+    name = request.form.get('name')
+    phone = request.form.get('phone')
+    newId = createPerson(name, phone)
+
+    date = request.form.get('date')
+    time = request.form.get('time')
+    destination = request.form.get('destination')
+    pickUpSpot = request.form.get('pickUpSpot')
+    passengerNum = request.form.get('passengerNum')
+    sc = request.form.get('secretCode')
+    secretCode = sha256_crypt.encrypt(sc)
+    print(secretCode)
+    createRide(date, time, destination, pickUpSpot, newId, passengerNum, passengerNum, secretCode)
+    return redirect('/drivers')
 
 @app.route('/details/<rideId>', methods=['POST'])
 def ride_details(rideId):
@@ -123,7 +139,7 @@ def edit_ride(rideId):
         passengerLimit = ride[0][6]
         passengers = getPassengers(rideId, passengerLimit)
         return render_template('edit.html', ride=ride, passengers=passengers)
-    else: 
+    else:
         rides = getRides()
         return redirect('/')
 
@@ -147,9 +163,33 @@ def delete_ride(rideId):
     rides = getRides()
     return redirect('/')
 
-@app.route('/privacy', methods=['POST'])
+@app.route('/viewRides', methods=['GET'])
+def viewRides():
+    rides = getRides()
+    return render_template('viewRides.html', rides=rides)
+
+@app.route('/privacy', methods=['GET'])
 def privacy():
     return render_template('privacy.html')
+
+@app.route('/faq', methods=['GET'])
+def faq():
+    return render_template('faq.html')
+
+@app.route('/drivers', methods=['GET', 'POST'])
+def drivers():
+    return render_template('drivers.html', requests=getRequests())
+
+@app.route('/riders', methods=['GET', 'POST'])
+def riders():
+    rides=getRides()
+    return render_template('riders.html', rides=rides)
+
+@app.route('/nav/<tab>', methods=['GET', 'POST'])
+def nav(tab):
+    navItems = ['viewRides', 'drivers', 'riders', 'privacy', 'faq']
+    navItemNames = ['View Rides', 'Drivers', 'Riders', 'Privacy', 'Faq']
+    return render_template('nav.html', selected=tab, navItems=navItems, navItemNames=navItemNames)
 
 def dumpRides(ride):
     return {"ride": {'date':ride[0][1],
@@ -175,4 +215,4 @@ def dumpRides(ride):
             }
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True)

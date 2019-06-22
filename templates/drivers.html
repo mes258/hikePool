@@ -6,41 +6,19 @@
     <title>Hitch a Ride | Drivers</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" type="text/css">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <a class="navbar-brand" href="index.html">Hitch A Ride</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="viewRides.html">View Rides</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="drivers.html">Add a Ride</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="riders.html">Join a Ride</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="privacy.html">Privacy</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="faq.html">FAQ</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <!-- {{url_for('nav', tab="drivers")}} -->
+    {% include '/nav.html' %}
 
     <div class="header">
-      <img src="../lib/mountain1.jpg" alt="Mountains">
+      <img src="{{url_for('static', filename='images/mountain1.jpg')}}" alt="Mountains">
       <h1>For Drivers</h1>
     </div>
 
     <div class="container">
+      {% if requests.size %}
       <section>
         <h3>Ride Requests</h3>
         <table class="table table-striped table-hover">
@@ -52,7 +30,7 @@
               <th>People Interested</th>
               <th></th>
             </thead>
-            {% for ride in rides %}
+            {% for request in requests %}
             <tr>
               <td>{{request[3]}}</td>
               <td>{{request[1]}}</td>
@@ -68,11 +46,12 @@
             {% endfor %}
         </table>
       </section>
+      {% endif %}
 
       <section class="row d-flex justify-content-center">
         <div class="col-12 col-md-6">
           <h3 class="text-center">Add a Ride</h3>
-          <form action="/" method="post">
+          <form action="/addRide" method="post">
               <div class="form-group row d-flex justify-content-center">
                 <label for="where" class="col-12 col-md-6">Where do you want to go?</label>
                 <input id="where" class="col-12 col-md-6 form-control" type="text" placeholder="Park/Trail" name="destination" required>
@@ -120,6 +99,12 @@
       crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="requests.js"></script>
+    <script src="{{url_for('static', filename='requests.js')}}"></script>
+    <script>
+      // $(document).ready(function() {
+      //   console.log(window.location.href + '/getRequests');
+      //   getAllRequests();
+      // });
+    </script>
   </body>
 </html>

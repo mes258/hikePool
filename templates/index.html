@@ -6,14 +6,14 @@
     <title>Hitch a Ride</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" type="text/css">
-    <link rel="stylesheet" href="stylesLanding.css" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='stylesLanding.css')}}" type="text/css">
   </head>
   <body>
     <div class="container-fluid">
       <div class="row">
         <div id="hero" class="col-12 col-md-6">
-          <img src="../lib/SnowMountain-min.jpg" alt="lac blanc">
+          <img src="{{url_for('static', filename='images/SnowMountain-min.jpg')}}" alt="lac blanc">
           <div id="heroText">
             <div id="heroTextContent">
               <div id="heroTitleText">
@@ -27,8 +27,8 @@
         </div>
         <div id="landingMenu" class="col-12 col-md-6">
           <div id="menuBtns">
-            <a href="drivers.html" class="btn">Add a Ride</a>
-            <a href="riders.html" class="btn">Join a Ride</a>
+            <a href="{{url_for('drivers')}}" class="btn">Add a Ride</a>
+            <a href="{{url_for('riders')}}" class="btn">Join a Ride</a>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ function getRide(rideId) {
     url: '/getRide',
     method: 'POST',
     data: {
-      'rideId':
+      'rideId': ''
     }
   }).done(function(result) {
     console.log(result);
@@ -26,7 +26,7 @@ function getAllRides() {
 
 function getAllRequests() {
   $.ajax({
-    url: '/getRequests',
+    url: window.location.href + '/getRequests',
     method: 'POST',
     data: {}
   }).done(function(result) {
