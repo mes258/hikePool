@@ -64,10 +64,18 @@
                     <td>{{ride[0][2]}}</td>
                     <td>{{ride[0][4]}}</td>
                     <td>{{ride[1][0][1]}}</td>
+                    {% if ride[0][7] < 0 %}
+                    <td>0/{{ride[0][6]}}</td>
+                    {% else %}
                     <td>{{ride[0][7]}}/{{ride[0][6]}}</td>
+                    {% endif %}
                     <td>
                     <form action="/join/{{'{0}'.format(ride[0][0])}}" method="post">
-                        <input class="btn btn-secnd" type="submit" value="Join">
+                        {% if ride[0][7] <= 0 %}
+                            <input class="btn btn-secnd" type="submit" value="Join the waitlist">
+                        {% else %}
+                            <input class="btn btn-secnd" type="submit" value="Join this ride">
+                        {% endif %}
                     </form>
                     </td>
                     <td>

@@ -78,7 +78,7 @@ def deleteRide(rideId):
     deletePeople(peopleIds)
 
 
-def editRide(rideId, date, time, destination, pickUpSpot, removedPassengerIds, removedPeopleIds):
+def editRide(rideId, date, time, destination, pickUpSpot, removedPassengerIds):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
     cur.execute('update rides set date = ? where id = ?', [date, rideId])
@@ -88,7 +88,6 @@ def editRide(rideId, date, time, destination, pickUpSpot, removedPassengerIds, r
     con.commit()
     con.close()
     deletePassengers(removedPassengerIds)
-    deletePeople(removedPeopleIds)
 
 
 def createPerson(name, phone):
@@ -154,8 +153,14 @@ def getWaitlist(rideId, passengerLimit):
 def deletePassengers(removedPassengers):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    for id in removedPassengers:
+    for strId in removedPassengers:
+        id = float(strId)
+        cur.execute('select * from passengers where id = ?', [id])
+        person = cur.fetchall()
+        print("HIHI")
+        print(person)
         cur.execute('delete from passengers where id = ?', [id])
-        cur.execute('update rides set spotsOpen = spotsOpen + 1 where id = ?', [id])
+        cur.execute('update rides set spotsOpen = spotsOpen + 1 where id = ?', [float(person[0][1])])
+        cur.execute('delete from people where id = ?', [person[0][2]])
     con.commit()
     con.close()

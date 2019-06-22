@@ -61,8 +61,7 @@
                 <label class="col-12">Check the box next to a passenger to remove them from the ride.</label>
                 {% for passenger in passengers %}
                 <div class="col-8">
-                  <!-- <label for="passenger"></label> -->
-                  <input id="" class="col-8 form-control" type="checkbox" name="removedPassenger" value="{{[passenger[3], passenger[0]]}}">
+                  <input id="" class="col-8 form-control" type="checkbox" name="removedPassenger" value="{{passenger[3]}}">
                   <span class="text-left">
                     {{passenger[1]}}: {{passenger[2]}}
                   </span>

@@ -72,13 +72,17 @@
             </tr>
             <tr class="row">
               <td class="col-6 col-md-3">Passengers:</td>
+              {% if passengers|length != 0 %}
               <td class="col-6 col-md-9">
                   {% for p in passengers %}
                     {{p[1]}}; 
                   {% endfor %}
               </td>
+              {% else %}
+              <td>No passengers are in this ride yet. Join this ride below!</td>
+              {% endif %}
             </tr>
-            {% if waitListLen != 0 %}
+            {% if waitList|length != 0 %}
             <tr class="row">
                     <td class="col-6 col-md-3">Wait List:</td>
                     <td class="col-6 col-md-9">
