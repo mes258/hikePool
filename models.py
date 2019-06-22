@@ -11,7 +11,7 @@ def createRide(date, time, destination, pickUpSpot, driverId, passengerNum, spot
     newID = cur.lastrowid
     con.commit()
     con.close()
-    return newID;
+    return newID
 
 def getRides():
     con = sql.connect(path.join(ROOT, 'database.db'))
@@ -133,6 +133,7 @@ def getDriver(driverId):
     con.close()
     return drivers
 
+# Should probably merge getPassengers and getWaitlist
 def getPassengers(rideId, passengerLimit):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
@@ -140,6 +141,15 @@ def getPassengers(rideId, passengerLimit):
     passengers = cur.fetchall()
     con.close()
     return passengers
+
+def getWaitlist(rideId, passengerLimit):
+    con = sql.connect(path.join(ROOT, 'database.db'))
+    cur = con.cursor()
+    cur.execute('select * from people join passengers on people.id = passengers.passengerId where passengers.rideId = ?', [rideId])
+    allPassengers = cur.fetchall()
+    con.close()
+    waitList = allPassengers[passengerLimit:]
+    return waitList
 
 def deletePassengers(removedPassengers):
     con = sql.connect(path.join(ROOT, 'database.db'))

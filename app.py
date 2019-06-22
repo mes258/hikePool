@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_cors import CORS
 from passlib.hash import sha256_crypt
-from models import createRide, getRides, deleteRide, joinRide, getRide, editRide, createPerson, getPeople, getPerson, getPassengers, getRequests, driveRide, getDriver
+from models import createRide, getRides, deleteRide, joinRide, getRide, editRide, createPerson, getPeople, getPerson, getPassengers, getRequests, driveRide, getDriver, getWaitlist
 app = Flask(__name__)
 
 CORS(app)
@@ -128,8 +128,9 @@ def ride_details(rideId):
     passengerLimit = ride[0][6]
     driver = getPerson(ride[0][5])
     passengers = getPassengers(rideId, passengerLimit)
+    waitList = getWaitlist(rideId, passengerLimit)
 
-    return render_template('details.html', ride=ride, driver=driver, passengers=passengers)
+    return render_template('details.html', ride=ride, driver=driver, passengers=passengers, waitList=waitList, waitListLen=len(waitList))
 
 @app.route('/edit/<rideId>', methods=['POST'])
 def edit_ride(rideId):
@@ -169,7 +170,8 @@ def viewRides():
     ridesWithDrivers = []
     for ride in rides:
         ridesWithDrivers.append((ride, getDriver(ride[5])))
-
+    for r in ridesWithDrivers:
+        print(r)
     requests = getRequests()
     return render_template('viewRides.html', rides=ridesWithDrivers, requests=requests, rideNum=len(rides), requestNum=len(requests))
 
@@ -183,7 +185,8 @@ def faq():
 
 @app.route('/drivers', methods=['GET', 'POST'])
 def drivers():
-    return render_template('drivers.html', requests=getRequests())
+    requests=getRequests()
+    return render_template('drivers.html', requests=requests, requestNum=len(requests))
 
 @app.route('/riders', methods=['GET', 'POST'])
 def riders():
@@ -191,7 +194,7 @@ def riders():
     ridesWithDrivers = []
     for ride in rides:
         ridesWithDrivers.append((ride, getDriver(ride[5])))
-    return render_template('riders.html', rides=ridesWithDrivers)
+    return render_template('riders.html', rides=ridesWithDrivers, rideNum=len(rides))
 
 @app.route('/nav/<tab>', methods=['GET', 'POST'])
 def nav(tab):

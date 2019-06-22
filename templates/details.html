@@ -71,6 +71,24 @@
               <td class="col-6 col-md-9">{{r[7]}}/{{r[6]}}</td>
             </tr>
             <tr class="row">
+              <td class="col-6 col-md-3">Passengers:</td>
+              <td class="col-6 col-md-9">
+                  {% for p in passengers %}
+                    {{p[1]}}; 
+                  {% endfor %}
+              </td>
+            </tr>
+            {% if waitListLen != 0 %}
+            <tr class="row">
+                    <td class="col-6 col-md-3">Wait List:</td>
+                    <td class="col-6 col-md-9">
+                        {% for p in waitList %}
+                          {{p[1]}}; 
+                        {% endfor %}
+                    </td>
+            </tr>
+            {% endif %}
+            <tr class="row">
               <td class="col-6 col-md-3">Drivers, Edit Your Ride</td>
               <td class="col-6 col-md-9">
                 <form action="/edit/{{'{0}'.format(r[0])}}" method="post">
@@ -93,7 +111,7 @@
         </div>
       </div>
     </div>
-
+    <p>{{waitList}}</p>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
