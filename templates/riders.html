@@ -41,43 +41,45 @@
     </div>
 
     <div class="container">
-      {% if rides.size %}
-      <section>
-        <h3>Join a Ride</h3>
-        <table class="table table-striped table-hover">
-            <thead>
-              <th>Destination</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Pick Up Spot</th>
-              <th>Driver Name</th>
-              <th>Spots Open</th>
-              <th></th>
-              <th></th>
-            </thead>
-            {% for ride in rides %}
-            <tr>
-              <td>{{ride[0][3]}}</td>
-              <td>{{ride[0][1]}}</td>
-              <td>{{ride[0][2]}}</td>
-              <td>{{ride[0][4]}}</td>
-              <td>{{ride[1][0][1]}}</td>
-              <td>{{ride[0][7]}}/{{ride[0][6]}}</td>
-              <td>
-                <form action="/join/{{'{0}'.format(ride[0][0])}}" method="post">
-                  <input class="btn btn-secnd" type="submit" value="Join">
-                </form>
-              </td>
-              <td>
-                <form action="/details/{{'{0}'.format(ride[0][0])}}" method="post">
-                  <input class="btn btn-secnd" type="submit" value="Details">
-                </form>
-              </td>
-            </tr>
-            {% endfor %}
-        </table>
-      </section>
-      {% endif %}
+        <section>
+            <h3>Join a Ride</h3>
+            <table class="table table-striped table-hover">
+                {% if rideNum == 0 %}
+                <p>There are no planned rides.</p>
+                {% else %}
+                <thead>
+                    <th>Destination</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Pick Up Spot</th>
+                    <th>Driver Name</th>
+                    <th>Spots Open</th>
+                    <th></th>
+                    <th></th>
+                </thead>
+                {% for ride in rides %}
+                <tr>
+                    <td>{{ride[0][3]}}</td>
+                    <td>{{ride[0][1]}}</td>
+                    <td>{{ride[0][2]}}</td>
+                    <td>{{ride[0][4]}}</td>
+                    <td>{{ride[1][0][1]}}</td>
+                    <td>{{ride[0][7]}}/{{ride[0][6]}}</td>
+                    <td>
+                    <form action="/join/{{'{0}'.format(ride[0][0])}}" method="post">
+                        <input class="btn btn-secnd" type="submit" value="Join">
+                    </form>
+                    </td>
+                    <td>
+                    <form action="/details/{{'{0}'.format(ride[0][0])}}" method="post">
+                        <input class="btn btn-secnd" type="submit" value="Details">
+                    </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </table>
+        </section>
 
       <section class="row d-flex justify-content-center">
         <div class="col-12 col-md-6">

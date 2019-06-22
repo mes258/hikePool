@@ -44,7 +44,9 @@
       <section>
         <h3>Ride Requests</h3>
         <table class="table table-striped table-hover">
-            {% if rides.size %}
+            {% if requestNum == 0 %}
+              <p>There are no ride requests.</p>
+            {% else %}
               <thead>
                 <th>Destination</th>
                 <th>Date</th>
@@ -53,7 +55,7 @@
                 <th>People Interested</th>
                 <th></th>
               </thead>
-              {% for ride in rides %}
+              {% for request in requests %}
               <tr>
                 <td>{{request[3]}}</td>
                 <td>{{request[1]}}</td>
@@ -67,16 +69,16 @@
                 </td>
               </tr>
               {% endfor %}
-            {% else %}
-              <p>There are no ride requests.</p>
-            {% endif %}
+            {% endif %} 
         </table>
       </section>
 
       <section>
         <h3>Join a Ride</h3>
         <table class="table table-striped table-hover">
-          {% if rides.size %}
+          {% if rideNum == 0 %}
+            <p>There are no planned rides.</p>
+          {% else %}
             <thead>
               <th>Destination</th>
               <th>Date</th>
@@ -107,8 +109,6 @@
               </td>
             </tr>
             {% endfor %}
-          {% else %}
-          <p>There are no planned rides.</p>
           {% endif %}
         </table>
       </section>
@@ -120,6 +120,6 @@
       crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="requests.js"></script>
+    <script src="../static/requests.js"></script>
   </body>
 </html>
