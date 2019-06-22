@@ -1,14 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
-  <a class="navbar-brand" href="index.html">Hitch A Ride</a>
+  <a class="navbar-brand" href="{{url_for('index')}}">Hitch A Ride</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       {% for navItem in navItems %}
+      <p>navItem</p>
       <li class="nav-item">
         <a class="nav-link {% if selected == navItem %}active{% endif %}"
-          href="{{navItem}}.html">{{navItemNames[loop.index-1]}}</a>
+          href="{{url_for('navItem')}}">{{navItemNames[loop.index-1]}}</a>
       </li>
       {% endfor %}
     </ul>
