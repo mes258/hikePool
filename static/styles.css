@@ -30,6 +30,10 @@ a:hover {
   text-decoration: none;
 }
 
+/* img {
+  min-height: 500px;
+} */
+
 nav {
   background-color: var(--secondary-dark);
 }
@@ -47,7 +51,10 @@ nav a:hover{
 }
 
 section {
-  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  max-width: 100%;
+  overflow-x: scroll;
 }
 
 label {
@@ -55,7 +62,7 @@ label {
 }
 
 .container {
-  padding-top: 50px;
+  /* padding-top: 50px; */
   padding-bottom: 30px;
 }
 
@@ -91,4 +98,10 @@ label {
 
 .headerNoPic {
   padding-top: 50px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-top: 50px;
+  }
 }
