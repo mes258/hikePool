@@ -58,6 +58,7 @@
                 <th>Pick Up Spot</th>
                 <th>People Interested</th>
                 <th></th>
+                <th></th>
               </thead>
               {% for request in requests %}
               <tr>
@@ -65,7 +66,10 @@
                 <td>{{request[1]}}</td>
                 <td>{{request[2]}}</td>
                 <td>{{request[4]}}</td>
-                <td>{{request[7]}}</td>
+                <td>{{request[7]|abs}}</td>
+                <td><form action="/join/{{'{0}'.format(request[0])}}" method="post">
+                    <input class="btn btn-secnd" type="submit" value="I'm also interested!">
+                </form></td>
                 <td>
                   <form action="/driveRide/{{'{0}'.format(request[0])}}" method="post">
                       <input class="btn btn-secnd" type="submit" value="Drive this ride">
