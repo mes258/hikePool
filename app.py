@@ -11,27 +11,27 @@ def index():
     if request.method == 'GET':
         pass
 
-    if request.method == 'POST':
-        name = request.form.get('name')
-        phone = request.form.get('phone')
-        newId = createPerson(name, phone)
+    # if request.method == 'POST':
+    #     name = request.form.get('name')
+    #     phone = request.form.get('phone')
+    #     newId = createPerson(name, phone)
 
-        date = request.form.get('date')
-        time = request.form.get('time')
-        destination = request.form.get('destination')
-        pickUpSpot = request.form.get('pickUpSpot')
-        passengerNum = request.form.get('passengerNum')
-        sc = request.form.get('secretCode')
-        secretCode = sha256_crypt.encrypt(sc)
-        createRide(date, time, destination, pickUpSpot, newId, passengerNum, passengerNum, secretCode)
+    #     date = request.form.get('date')
+    #     time = request.form.get('time')
+    #     destination = request.form.get('destination')
+    #     pickUpSpot = request.form.get('pickUpSpot')
+    #     passengerNum = request.form.get('passengerNum')
+    #     sc = request.form.get('secretCode')
+    #     secretCode = sha256_crypt.encrypt(sc)
+    #     createRide(date, time, destination, pickUpSpot, newId, passengerNum, passengerNum, secretCode)
 
-    rides = getRides()
-    ridesWithDrivers = []
-    for ride in rides:
-        ridesWithDrivers.append((ride, getDriver(ride[5])))
-    requests = getRequests()
+    # rides = getRides()
+    # ridesWithDrivers = []
+    # for ride in rides:
+    #     ridesWithDrivers.append((ride, getDriver(ride[5])))
+    # requests = getRequests()
 
-    return render_template('index.html', rides=ridesWithDrivers, requests=requests)
+    return render_template('index.html')
 
 @app.route('/getRide/<rideId>', methods=['POST'])
 def get_Ride(rideId):
@@ -58,15 +58,19 @@ def get_Requests():
 
 @app.route('/createRequest', methods=['POST'])
 def create_request():
+    name = request.form.get('name')
+    phone = request.form.get('phone')
+    passengerId = createPerson(name, phone)
+
     date = request.form.get('date')
     time = request.form.get('time')
     destination = request.form.get('destination')
     pickUpSpot = request.form.get('pickUpSpot')
     rideId = createRide(date, time, destination, pickUpSpot, -1, 0, 0, None)
 
+    joinRide(rideId, passengerId)
+
     rides = getRides()
-    drivers = getPeople()
-    reqests = getRequests()
     return redirect('/viewRides')
 
 @app.route('/driveRide/<rideId>', methods=['POST'])
@@ -148,11 +152,9 @@ def edit_ride_submit(rideId):
     destination = request.form.get('destination')
     pickUpSpot = request.form.get('pickUpSpot')
     removedPassengerIds = request.form.getlist('removedPassenger')
-    print(removedPassengerIds)
     editRide(rideId, date, time, destination, pickUpSpot, removedPassengerIds)
 
-    rides = getRides()
-    return redirect('/viewRides')
+    return ride_details(rideId)
 
 @app.route('/delete/<rideId>', methods=['POST'])
 def delete_ride(rideId):
@@ -192,7 +194,6 @@ def riders():
 
 @app.route('/navItem/<tab>', methods=['GET', 'POST'])
 def nav(tab):
-    print("hi there")
     navItems = ['viewRides', 'drivers', 'riders', 'privacy', 'faq']
     navItemNames = ['View Rides', 'Drivers', 'Riders', 'Privacy', 'Faq']
     return render_template('nav.html', selected=tab, navItems=navItems, navItemNames=navItemNames)

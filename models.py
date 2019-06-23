@@ -157,8 +157,6 @@ def deletePassengers(removedPassengers):
         id = float(strId)
         cur.execute('select * from passengers where id = ?', [id])
         person = cur.fetchall()
-        print("HIHI")
-        print(person)
         cur.execute('delete from passengers where id = ?', [id])
         cur.execute('update rides set spotsOpen = spotsOpen + 1 where id = ?', [float(person[0][1])])
         cur.execute('delete from people where id = ?', [person[0][2]])
