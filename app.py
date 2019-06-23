@@ -177,7 +177,7 @@ def privacy():
 def faq():
     return render_template('faq.html')
 
-@app.route('/drivers', methods=['GET', 'POST'])
+@app.route('/drivers', methods=['GET', 'Post'])
 def drivers():
     requests=getRequests()
     return render_template('drivers.html', requests=requests)

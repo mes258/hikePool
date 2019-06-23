@@ -32,8 +32,8 @@
               <a class="nav-link" href="{{url_for('privacy')}}">Privacy</a>
             </li>
             <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('feedback')}}">Feedback</a>
-                </li>
+                <a class="nav-link" href="{{url_for('feedback')}}">Feedback</a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -47,7 +47,7 @@
         <section>
             <h3>Ride Requests</h3>
             <table class="table table-striped table-hover">
-                {% if reqeusts|length == 0 %}
+                {% if requests|length == 0 %}
                     <p>There are no ride requests.</p>
                 {% else %}
                     <thead>
@@ -64,7 +64,7 @@
                     <td>{{request[1]}}</td>
                     <td>{{request[2]}}</td>
                     <td>{{request[4]}}</td>
-                    <td>{{request[7]}}</td>
+                    <td>{{request[7]|abs}}</td>
                     <td>
                         <form action="/driveRide/{{'{0}'.format(request[0])}}" method="post">
                             <input class="btn btn-secnd" type="submit" value="Drive this ride">
