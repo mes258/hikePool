@@ -63,7 +63,7 @@
               {% for request in requests %}
               <tr>
                 <td>{{request[3]}}</td>
-                <td>{{request[1]}}</td>
+                <td class="dateToParse">{{request[1]}}</td>
                 <td>{{request[2]}}</td>
                 <td>{{request[4]}}</td>
                 <td>{{request[7]|abs}}</td>
@@ -100,7 +100,7 @@
             {% for ride in rides %}
             <tr>
               <td>{{ride[0][3]}}</td>
-              <td>{{ride[0][1]}}</td>
+              <td class="dateToParse">{{ride[0][1]}}</td>
               <td>{{ride[0][2]}}</td>
               <td>{{ride[0][4]}}</td>
               <td>{{ride[1][0][1]}}</td>
@@ -136,5 +136,16 @@
       crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function() {
+        $('.dateToParse').each(function() {
+          let date = $(this).html();
+          date = date.replace(/-/g, '/');
+          let year = date.substring(0,4);
+          date = date.substring(5) + '/' + year;
+          $(this).html(date);
+        });
+      });
+    </script>
   </body>
 </html>
