@@ -149,7 +149,6 @@ def edit_ride_submit(rideId):
     pickUpSpot = request.form.get('pickUpSpot')
     removedPassengerIds = request.form.getlist('removedPassenger')
     print(removedPassengerIds)
-    # removedPeopleIds = (passenger[1] for passenger in removedPassengers)
     editRide(rideId, date, time, destination, pickUpSpot, removedPassengerIds)
 
     rides = getRides()
@@ -191,8 +190,9 @@ def riders():
         ridesWithDrivers.append((ride, getDriver(ride[5])))
     return render_template('riders.html', rides=ridesWithDrivers)
 
-@app.route('/nav/<tab>', methods=['GET', 'POST'])
+@app.route('/navItem/<tab>', methods=['GET', 'POST'])
 def nav(tab):
+    print("hi there")
     navItems = ['viewRides', 'drivers', 'riders', 'privacy', 'faq']
     navItemNames = ['View Rides', 'Drivers', 'Riders', 'Privacy', 'Faq']
     return render_template('nav.html', selected=tab, navItems=navItems, navItemNames=navItemNames)
