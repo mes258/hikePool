@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='stylesEdit.css')}}" type="text/css">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -60,14 +61,13 @@
                 <label for="pickup" class="col-12 col-md-6">Where do you want to leave from?</label>
                 <input id="pickup" class="col-12 col-md-6 form-control" type="text" value="{{r[4]}}" name="pickUpSpot" required>
               </div>
-              <div class="form-group row d-flex justify-content-center">
-                <label class="col-12">Check the box next to a passenger to remove them from the ride.</label>
+              <div id="removePassengerSection" class="form-group row d-flex justify-content-center">
+                <label class="col-12 text-center">Click on passengers you want to remove from the ride, then press Save.</label>
                 {% for passenger in passengers %}
-                <div class="col-8">
-                  <input id="" class="col-8 form-control" type="checkbox" name="removedPassenger" value="{{passenger[3]}}">
-                  <span class="text-left">
-                    {{passenger[1]}}: {{passenger[2]}}
-                  </span>
+                <div class="col-12 text-center passenger">
+                  <h4>{{passenger[1]}}: {{passenger[2]}}</h4>
+                  <input id="passenger{{loop.index-1}}" class="col-8 form-control passengerCheckbox"
+                    type="checkbox" name="removedPassenger" value="{{passenger[3]}}" style="display: none;">
                 </div>
                 {% endfor %}
               </div>
@@ -93,6 +93,14 @@
       crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="requests.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('.passenger').on('click', function() {
+          let $checkbox = $(this).find('input');
+          $checkbox.prop('checked', !$checkbox.prop('checked'));
+          $(this).toggleClass('unpassengered');
+        });
+      });
+    </script>
   </body>
 </html>
