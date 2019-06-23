@@ -197,6 +197,18 @@ def nav(tab):
     navItemNames = ['View Rides', 'Drivers', 'Riders', 'Privacy', 'Faq']
     return render_template('nav.html', selected=tab, navItems=navItems, navItemNames=navItemNames)
 
+@app.route('/feedback', methods=['GET'])
+def feedback():
+    return render_template('feedback.html')
+
+@app.route('/feedback/submit', methods=['POST'])
+def submit_feedback():
+    feedback = request.form.get('feedback')
+    with open("feedback.txt", "a") as feedbackFile:
+        feedbackFile.write(feedback + "\n")
+
+    return render_template('feedback.html')
+
 def dumpRides(ride):
     return {"ride": {'date':ride[0][1],
                     'time':ride[0][2],
