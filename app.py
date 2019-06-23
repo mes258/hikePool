@@ -207,7 +207,7 @@ def submit_feedback():
     feedback = request.form.get('feedback')
     with open("feedback.txt", "a") as feedbackFile:
         feedbackFile.write(feedback + "\n")
-    return render_template('viewRides.html')
+    return redirect('/viewRides')
 
 def dumpRides(ride):
     return {"ride": {'date':ride[0][1],
