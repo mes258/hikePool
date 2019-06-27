@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hitch a Ride | Drive Ride</title>
+    <title>Hitch a Ride | Feedback</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" type="text/css">
@@ -32,46 +32,32 @@
               <a class="nav-link" href="{{url_for('privacy')}}">Privacy</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for('feedback')}}">Feedback</a>
+                <a class="nav-link active" href="{{url_for('feedback')}}">Feedback</a>
             </li>
           </ul>
         </div>
       </nav>
 
-    <div class="container">
-      <div class="row d-flex justify-content-center headerNoPic">
-        <div class="col-12 col-lg-6">
-          {% for r in ride %}
-          <h1 class="text-center">Drive the Ride to {{r[3]}}</h1>
-          <h3 class="text-center">on <span class="dateToParse">{{r[1]}}</span> at {{r[2]}}</h3>
-          <h4 class="text-center">Enter your information to drive this ride.</h4>
-          <form action="/driveRide/{{'{0}'.format(r[0])}}/submit" method="post">
-              <div class="form-group row d-flex justify-content-center">
-                <label for="driverName" class="col-12 col-md-6">Name</label>
-                <input id="driverName" class="col-12 col-md-6 form-control" type="text" placeholder="Your Name" name="name" required>
-              </div>
-              <div class="form-group row d-flex justify-content-center">
-                <label for="phone" class="col-12 col-md-6">Phone Number</label>
-                <input id="phone" class="col-12 col-md-6 form-control" type="text" placeholder="Your Number" name="phone" required>
-              </div>
-              <div class="form-group row d-flex justify-content-center">
-                <label for="passengerNum" class="col-12 col-md-6">How many people can fit in your car?</label>
-                <input id="passengerNum" class="col-12 col-md-6 form-control" type="number" value="4" name="passengerNum" required>
-              </div>
-              <div class="form-group row d-flex justify-content-center">
-                <label for="secretCode" class="col-12 col-md-6">Add a secret code</label>
-                <input id="secretCode" class="col-12 col-md-6 form-control" type="password" name="secretCode" required>
-                <small class="form-text text-muted text-center">Note: Remember your secret code! You'll need it to edit your ride later.<br>If left blank, anyone can edit this ride.</small>
-              </div>
+      <div class="header">
+        <img src="{{url_for('static', filename='images/mountain5.jpg')}}" alt="Mountains">
+        <h1>Feedback</h1>
+      </div>
 
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-lg-6">
+            <h4 class="text-center">Have some feedback? &nbsp;Found a bug?<br>Let us know!</h4>
+            <form id="feedback" action="/feedback/submit" method="post">
+              <div class="form-group row d-flex justify-content-center">
+                <textarea class="col-12 form-control" name="feedback" type="text" required></textarea>
+              </div>
               <div class="form-group row d-flex justify-content-center">
                 <input class="btn btn-secnd" type="submit" value="Submit">
               </div>
-          </form>
-          {% endfor %}
+            </form>
+          </div>
         </div>
       </div>
-    </div>
 
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -79,16 +65,5 @@
       crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script>
-      $(document).ready(function() {
-        $('.dateToParse').each(function() {
-          let date = $(this).html();
-          date = date.replace(/-/g, '/');
-          let year = date.substring(0,4);
-          date = date.substring(5) + '/' + year;
-          $(this).html(date);
-        });
-      });
-    </script>
   </body>
 </html>

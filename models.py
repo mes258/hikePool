@@ -11,7 +11,7 @@ def createRide(date, time, destination, pickUpSpot, driverId, passengerNum, spot
     newID = cur.lastrowid
     con.commit()
     con.close()
-    return newID;
+    return newID
 
 def getRides():
     con = sql.connect(path.join(ROOT, 'database.db'))
@@ -78,7 +78,7 @@ def deleteRide(rideId):
     deletePeople(peopleIds)
 
 
-def editRide(rideId, date, time, destination, pickUpSpot, removedPassengerIds, removedPeopleIds):
+def editRide(rideId, date, time, destination, pickUpSpot, removedPassengerIds):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
     cur.execute('update rides set date = ? where id = ?', [date, rideId])
@@ -88,7 +88,6 @@ def editRide(rideId, date, time, destination, pickUpSpot, removedPassengerIds, r
     con.commit()
     con.close()
     deletePassengers(removedPassengerIds)
-    deletePeople(removedPeopleIds)
 
 
 def createPerson(name, phone):
@@ -133,6 +132,7 @@ def getDriver(driverId):
     con.close()
     return drivers
 
+# Should probably merge getPassengers and getWaitlist
 def getPassengers(rideId, passengerLimit):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
@@ -141,11 +141,24 @@ def getPassengers(rideId, passengerLimit):
     con.close()
     return passengers
 
+def getWaitlist(rideId, passengerLimit):
+    con = sql.connect(path.join(ROOT, 'database.db'))
+    cur = con.cursor()
+    cur.execute('select * from people join passengers on people.id = passengers.passengerId where passengers.rideId = ?', [rideId])
+    allPassengers = cur.fetchall()
+    con.close()
+    waitList = allPassengers[passengerLimit:]
+    return waitList
+
 def deletePassengers(removedPassengers):
     con = sql.connect(path.join(ROOT, 'database.db'))
     cur = con.cursor()
-    for id in removedPassengers:
+    for strId in removedPassengers:
+        id = float(strId)
+        cur.execute('select * from passengers where id = ?', [id])
+        person = cur.fetchall()
         cur.execute('delete from passengers where id = ?', [id])
-        cur.execute('update rides set spotsOpen = spotsOpen + 1 where id = ?', [id])
+        cur.execute('update rides set spotsOpen = spotsOpen + 1 where id = ?', [float(person[0][1])])
+        cur.execute('delete from people where id = ?', [person[0][2]])
     con.commit()
     con.close()

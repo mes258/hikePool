@@ -3,12 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hitch a Ride | Ride Details</title>
+    <title>Hitch a Ride | All Rides</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='stylesDetails.css')}}" type="text/css">
-
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -19,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('viewRides')}}">All Rides</a>
+              <a class="nav-link active" href="{{url_for('viewRides')}}">All Rides</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('drivers')}}">Drivers</a>
@@ -40,89 +39,97 @@
         </div>
       </nav>
 
+    <div class="header">
+      <img src="{{url_for('static', filename='images/mountain2.jpg')}}" alt="Mountains">
+        <h1>All Rides</h1>
+    </div>
+
     <div class="container">
-      <div class="row d-flex justify-content-center">
-        <div class="col-12 col-lg-9">
-          <h1>Ride Details</h1>
-          <table class="table table-hover">
-            {% for r in ride %}
-            <tr class="row">
-              <td class="col-6 col-md-3">Destination</td>
-              <td class="col-6 col-md-9">{{r[3]}}</td>
-            </tr>
-            <tr class="row">
-              <td class="col-6 col-md-3">Date</td>
-              <td class="col-6 col-md-9 dateToParse">{{r[1]}}</td>
-            </tr>
-            <tr class="row">
-              <td class="col-6 col-md-3">Time</td>
-              <td class="col-6 col-md-9">{{r[2]}}</td>
-            </tr>
-            <tr class="row">
-              <td class="col-6 col-md-3">Pick Up Spot</td>
-              <td class="col-6 col-md-9">{{r[4]}}</td>
-            </tr>
-            <tr class="row">
-              <td class="col-6 col-md-3">Driver Name</td>
-              <td class="col-6 col-md-9">{{driver[0][1]}}</td>
-            </tr>
-            <tr class="row">
-              <td class="col-6 col-md-3">Driver Phone Number</td>
-              <td class="col-6 col-md-9">{{driver[0][2]}}</td>
-            </tr>
-            <tr class="row">
-              <td class="col-6 col-md-3">Spots Open</td>
-              <td class="col-6 col-md-9">{{r[7]}}/{{r[6]}}</td>
-            </tr>
-            <tr class="row">
-              <td class="col-6 col-md-3">Passengers:</td>
-              {% if passengers|length != 0 %}
-              <td class="col-6 col-md-9">
-                  {% for p in passengers %}
-                    {{p[1]}};
-                  {% endfor %}
-              </td>
-              {% else %}
-              <td>No passengers are in this ride yet. Join this ride below!</td>
-              {% endif %}
-            </tr>
-            {% if waitList|length != 0 %}
-            <tr class="row">
-                    <td class="col-6 col-md-3">Wait List:</td>
-                    <td class="col-6 col-md-9">
-                        {% for p in waitList %}
-                          {{p[1]}};
-                        {% endfor %}
-                    </td>
-            </tr>
+      <section>
+        <h3>Ride Requests</h3>
+        <table class="table table-striped table-hover">
+            {% if requests|length == 0 %}
+              <p>There are no ride requests.</p>
+            {% else %}
+              <thead>
+                <th>Destination</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Pick Up Spot</th>
+                <th>People Interested</th>
+                <th></th>
+                <th></th>
+              </thead>
+              {% for request in requests %}
+              <tr>
+                <td>{{request[3]}}</td>
+                <td class="dateToParse">{{request[1]}}</td>
+                <td>{{request[2]}}</td>
+                <td>{{request[4]}}</td>
+                <td>{{request[7]|abs}}</td>
+                <td><form action="/join/{{'{0}'.format(request[0])}}" method="post">
+                    <input class="btn btn-secnd" type="submit" value="I'm also interested!">
+                </form></td>
+                <td>
+                  <form action="/driveRide/{{'{0}'.format(request[0])}}" method="post">
+                      <input class="btn btn-secnd" type="submit" value="Drive this ride">
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
             {% endif %}
-            <tr class="row">
-              <td class="col-6 col-md-3">Drivers, Edit Your Ride</td>
-              <td class="col-6 col-md-9">
-                <form action="/edit/{{'{0}'.format(r[0])}}" method="post">
-                  <div class="form-group">
-                    <input class="form-control" type="password" name="sc" placeholder="Secret Code" />
-                    <input id="editBtn" class="btn btn-secnd" type="submit" value="Edit Ride" />
-                  </div>
-                </form>
-              </td>
-            </tr>
+        </table>
+      </section>
+
+      <section>
+        <h3>Join a Ride</h3>
+        <table class="table table-striped table-hover">
+          {% if rides|length == 0 %}
+            <p>There are no planned rides.</p>
+          {% else %}
+            <thead>
+              <th>Destination</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Pick Up Spot</th>
+              <th>Driver Name</th>
+              <th>Spots Open</th>
+              <th></th>
+              <th></th>
+            </thead>
+            {% for ride in rides %}
             <tr>
-              <td colspan="2" class="text-center">
-                <form action="/join/{{'{0}'.format(r[0])}}" method="post">
-                    {% if passengers|length == r[6] %}
+              <td>{{ride[0][3]}}</td>
+              <td class="dateToParse">{{ride[0][1]}}</td>
+              <td>{{ride[0][2]}}</td>
+              <td>{{ride[0][4]}}</td>
+              <td>{{ride[1][0][1]}}</td>
+              {% if ride[0][7] < 0 %}
+                <td>0/{{ride[0][6]}}</td>
+              {% else %}
+                <td>{{ride[0][7]}}/{{ride[0][6]}}</td>
+              {% endif %}
+              <td>
+                <form action="/join/{{'{0}'.format(ride[0][0])}}" method="post">
+                    {% if ride[0][7] <= 0 %}
                         <input class="btn btn-secnd" type="submit" value="Join the waitlist">
                     {% else %}
                         <input class="btn btn-secnd" type="submit" value="Join this ride">
                     {% endif %}
                 </form>
               </td>
+              <td>
+                <form action="/details/{{'{0}'.format(ride[0][0])}}" method="post">
+                  <input class="btn btn-secnd" type="submit" value="Details">
+                </form>
+              </td>
             </tr>
             {% endfor %}
-          </table>
-        </div>
-      </div>
+          {% endif %}
+        </table>
+      </section>
     </div>
+
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
