@@ -1,0 +1,12 @@
+td:first-child {
+  font-weight: bold;
+}
+
+.form-control {
+  display: inline;
+  width: auto;
+}
+
+#editBtn {
+  margin-top: -5px;
+}

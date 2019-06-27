@@ -1,0 +1,107 @@
+:root {
+  --highlight: #ffe2d1;
+  --highlight2: #e1f0c4;
+  --primary: #6bab90;
+  --primary-dark: #55917f;
+  --secondary: #5e4c5a;
+  --secondary-dark: #2b272a;
+  --secondary-light: #b19ead;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Didact Gothic', sans-serif;
+}
+
+h3 {
+  padding-bottom: 15px;
+}
+
+a {
+  color: var(--secondary-light);
+}
+
+a:hover {
+  color: var(--highlight);
+  text-decoration: none;
+}
+
+/* img {
+  min-height: 500px;
+} */
+
+nav {
+  background-color: var(--secondary-dark);
+}
+
+nav li {
+  padding: 0 20px;
+}
+
+nav a {
+  transition: color 0.3s;
+}
+
+nav a:hover{
+  color: var(--highlight);
+}
+
+section {
+  margin-bottom: 30px;
+  margin-top: 10px;
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+label {
+  text-align: right;
+}
+
+.container {
+  /* padding-top: 50px; */
+  padding-bottom: 30px;
+}
+
+.btn-secnd {
+  background-color: var(--secondary);
+  border: none;
+  color: white;
+}
+
+.btn-secnd:hover {
+  background-color: var(--secondary-light);
+  color: white;
+}
+
+.header {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+.header img {
+  width: 100%;
+}
+
+.header h1 {
+  font-size: 60px;
+  text-shadow: 10px 10px 10px var(--secondary);
+  color: white;
+  position: absolute;
+  bottom: 30%;
+  left: 10%;
+}
+
+.headerNoPic {
+  padding-top: 50px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-top: 50px;
+  }
+}

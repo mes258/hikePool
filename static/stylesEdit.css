@@ -1,0 +1,10 @@
+#removePassengerSection .passengerCheckbox {
+  transition: all 0.5s;
+  /* display: none; */
+}
+
+.unpassengered {
+  text-decoration: line-through;
+  color: grey;
+  font-style: italic;
+}
