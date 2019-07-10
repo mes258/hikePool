@@ -58,9 +58,9 @@ def get_Requests():
 
 @app.route('/createRequest', methods=['POST'])
 def create_request():
-    name = request.form.get('name')
-    phone = request.form.get('phone')
-    passengerId = createPerson(name, phone)
+    # name = request.form.get('name')
+    # phone = request.form.get('phone')
+    # passengerId = createPerson(name, phone)
 
     date = request.form.get('date')
     time = request.form.get('time')
@@ -68,7 +68,7 @@ def create_request():
     pickUpSpot = request.form.get('pickUpSpot')
     rideId = createRide(date, time, destination, pickUpSpot, -1, 0, 0, None)
 
-    joinRide(rideId, passengerId)
+    # joinRide(rideId, passengerId)
 
     rides = getRides()
     return redirect('/viewRides')
