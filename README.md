@@ -1,6 +1,6 @@
-# hitchARide
+# HikePool
 Simple webapp for pairing drivers with riders (right now for hiking purposes).
-Check it out at: http://hitcharide.pythonanywhere.com/
+Check it out at: https://www.mshikepool.com/
 
 ## How to run locally: 
 Note: this works on Unix based systems with Python 3 already installed. I have not tested it on Windows. If you do get it working on a Window's device, let me know how and we'll update this document. 
